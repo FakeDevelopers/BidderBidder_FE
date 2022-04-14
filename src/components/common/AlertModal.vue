@@ -1,7 +1,7 @@
 <template>
   <transition name="modal">
     <div class="modal-mask">
-      <div class="modal-wrapper" @click.self="modalClose">
+      <div class="modal-wrapper" @click.self="modalClose(false)">
         <div class="modal-container">
             <div class="modal-header">
               <slot name="header">
@@ -31,7 +31,7 @@ import { mapMutations } from 'vuex'
 export default {
   methods: {
     ...mapMutations({
-      modalClose: 'modalClose'
+      modalClose: 'setShowModal'
     })
   }
 }

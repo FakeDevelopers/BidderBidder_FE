@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button id="login-button" @click="modalOpen">로그인</button>
+    <button id="login-button" @click="modalOpen(true)">로그인</button>
     <modal v-if="this.showModal">
       <template v-slot:header>
         <h3>로그인</h3>
@@ -19,7 +19,7 @@
         </form>
       </template>
       <template v-slot:footer>
-        <label><input type="checkbox" name="TF" value="true">자동로그인 하시겠습니까?</label>
+        <label><input type="checkbox" value="true">자동로그인 하시겠습니까?</label>
       </template>
     </modal>
   </div>
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     ...mapMutations({
-      modalOpen : 'modalOpen'
+      modalOpen : 'setShowModal'
     })
   },
   computed: {
