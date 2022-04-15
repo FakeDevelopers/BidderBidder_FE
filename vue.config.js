@@ -5,7 +5,13 @@ module.exports = {
   indexPath: "../static/index.html",
   //SpringBoot 서버 접속 주소
   devServer: {
-    proxy: "http://localhost:8080"
+    proxy: {
+      '/' : {
+        "target": "http://3.38.81.213:8080",
+        "pathRewrite": {'^/':''},
+        "changeOrigin": true
+      }
+    }
   },
   chainWebpack: config => {
     const svgRule = config.module.rule("svg");

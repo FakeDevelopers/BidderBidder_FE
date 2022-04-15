@@ -6,15 +6,15 @@
         <h3>로그인</h3>
       </template>
       <template v-slot:body>
-        <form>
+        <form v-on:submit.prevent="submitForm">
           <div>
             <label for="username">id: </label>
-            <input id="username" type="text" v-model="username">
+            <input id="username" type="text" v-model="email">
           </div><br>
           <div>
             <label for="password">pw:</label>
-            <input id="password" type="password" v-model="password"><br><br>
-          </div>
+            <input id="password" type="password" v-model="passwd">
+          </div><br><br>
           <button type="submit">로그인</button>
         </form>
       </template>
@@ -28,12 +28,13 @@
 <script>
 import Modal from './common/AlertModal.vue'
 import { mapGetters, mapMutations } from 'vuex'
+import axios from 'axios'
 export default {
   name: "login",
   data() {
     return{
-      username: '',
-      password: '',
+      email: '',
+      passwd: '',
     }
   },
   components: {
@@ -42,7 +43,21 @@ export default {
   methods: {
     ...mapMutations({
       modalOpen : 'setShowModal'
-    })
+    }),
+    submitForm: function() {
+      console.log(this.email, this.passwd);
+      const data = {
+        email: this.email,
+        passwd: this.passwd
+      };
+      axios.post('/user/login', data)
+          .then(function(response){
+            console.log(response)
+          })
+          .catch(function(error) {
+            console.log(error)
+          });
+    }
   },
   computed: {
     ...mapGetters({
