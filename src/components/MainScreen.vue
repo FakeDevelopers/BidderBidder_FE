@@ -46,11 +46,12 @@ export default {
     }),
     submitForm: function() {
       console.log(this.email, this.passwd);
+      const url = '/user/login';
       const data = {
         email: this.email,
         passwd: this.passwd
-      };
-      axios.post('/user/login', data)
+      }
+      axios.post(url, data)
           .then(function(response){
             console.log(response)
           })
