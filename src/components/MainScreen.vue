@@ -6,15 +6,15 @@
         <h3>로그인</h3>
       </template>
       <template v-slot:body>
-        <form v-on:submit.prevent="submitForm">
+        <form>
           <div>
             <label for="username">id: </label>
             <input id="username" type="text" v-model="email">
           </div><br>
           <div>
             <label for="password">pw:</label>
-            <input id="password" type="password" v-model="passwd"><br><br>
-          </div>
+            <input id="password" type="password" v-model="passwd">
+          </div><br><br>
           <button type="submit">로그인</button>
         </form>
       </template>
