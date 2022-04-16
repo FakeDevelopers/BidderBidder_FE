@@ -6,7 +6,7 @@
         <h3>로그인</h3>
       </template>
       <template v-slot:body>
-        <form>
+        <form v-on:submit.prevent="submitForm">
           <div>
             <label for="username">id: </label>
             <input id="username" type="text" v-model="email">
