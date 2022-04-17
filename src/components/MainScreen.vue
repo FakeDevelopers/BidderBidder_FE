@@ -53,6 +53,7 @@ export default {
 
       form.append('email', this.email)
       form.append('passwd', this.passwd)
+
       try{
       const response = await axios.post(url,form)
       console.log(response)
