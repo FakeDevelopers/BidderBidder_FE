@@ -44,20 +44,22 @@ export default {
     ...mapMutations({
       modalOpen : 'setShowModal'
     }),
-    submitForm: function() {
-      console.log(this.email, this.passwd);
-      const url = '/user/login';
-      const data = {
-        email: this.email,
-        passwd: this.passwd
+    submitForm: async function() {
+
+      console.log(this.email, this.passwd)
+
+      const url = '/user/login'
+      const form = new FormData()
+
+      form.append('email', this.email)
+      form.append('passwd', this.passwd)
+
+      try{
+      const response = await axios.post(url,form)
+      console.log(response)
+      } catch(err){
+        console.log(err)
       }
-      axios.post(url, data)
-          .then(function(response){
-            console.log(response)
-          })
-          .catch(function(error) {
-            console.log(error)
-          });
     }
   },
   computed: {
