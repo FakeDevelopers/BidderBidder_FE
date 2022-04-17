@@ -44,7 +44,7 @@ export default {
     ...mapMutations({
       modalOpen : 'setShowModal'
     }),
-    submitForm: function() {
+    submitForm: async function() {
 
       console.log(this.email, this.passwd)
 
@@ -53,14 +53,12 @@ export default {
 
       form.append('email', this.email)
       form.append('passwd', this.passwd)
-
-      axios.post(url,form)
-          .then(function(response){
-            console.log(response)
-          })
-          .catch(function(error) {
-            console.log(error)
-          })
+      try{
+      const response = await axios.post(url,form)
+      console.log(response)
+      } catch(err){
+        console.log(err)
+      }
     }
   },
   computed: {
