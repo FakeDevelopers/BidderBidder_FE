@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div><button id="test api" @click="submitForm">호출</button></div>
+    <div><button @click="submitForm">호출</button></div>
     <div>
       <form>
-        <input type="file" name="files" id="files" multiple @change="upload">
+        <input type="file" name="files" multiple @change="upload">
       </form>
     </div>
   </div>
@@ -20,7 +20,7 @@ export default {
       hopePrice: 7000,
       openingBid:3000,
       tick: 1,
-      files: [],
+      imageList: [],
     }
   },
   methods:{
@@ -33,8 +33,8 @@ export default {
       form.append('board_title', '뭐뭐 팝니다.')
       form.append('category', this.category)
       form.append('end_date','2022-05-02 14:00')
-      for(let i =0; i<this.files.length;i++){
-        form.append('files', this.files[i])
+      for(let i =0; i<this.imageList.length;i++){
+        form.append('files', this.imageList[i])
       }
       form.append('hope_price' , this.hopePrice)
       form.append('opening_bid', this.openingBid)
@@ -53,10 +53,10 @@ export default {
     },
     upload(e) {
       let fileList = e.target.files || e.dataTransfer.files
-      for(let i =0; i< fileList.length;i++){
-        this.files.push(fileList[i])
-        console.log(this.files)
+      for(let image of fileList){
+        this.imageList.push(image)
       }
+      console.log(this.imageList)
     }
   },
 }

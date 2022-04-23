@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button id="login-button" @click="modalOpen(true)">로그인</button>
+    <button @click="modalOpen(true)">로그인</button>
     <modal v-if="this.showModal">
       <template v-slot:header>
         <h3>로그인</h3>
@@ -54,9 +54,9 @@ export default {
       form.append('email', this.email)
       form.append('passwd', this.passwd)
 
-      try{
-      const response = await axios.post(url,form)
-      console.log(response)
+      try {
+        const response = await axios.post(url,form)
+        console.log(response)
       } catch(err){
         console.log(err)
       }
