@@ -1,15 +1,18 @@
 <template>
   <div>
     <MainScreen></MainScreen>
+    <WriteScreen></WriteScreen>
   </div>
 </template>
 
 <script>
 import MainScreen from './components/MainScreen.vue'
+import WriteScreen from "@/components/WriteScreen";
 export default {
   name: 'App',
   components: {
-    MainScreen
+    MainScreen,
+    WriteScreen
   }
 }
 </script>
