@@ -5,14 +5,12 @@
       <input type="text" v-model="phoneNumber">
     </div>
     <div>
-      <button @click="recapture">인증</button>
       <button @click="sendCode">발송</button>
       <p>인증번호: </p>
-      <input type="number" v-model="code">
+      <input type="number" v-model="configCode">
       <button @click="loginProcess">확인</button>
     </div>
-    <div>
-
+    <div id="recaptcha-container">
     </div>
     <div>
 
@@ -22,46 +20,40 @@
 
 <script>
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth"
-import { initializeApp } from "firebase/app";
-
+import { app } from '@/firebase'
 export default {
-
-  created() {
-
-    initializeApp(firebaseConfig)
-  },
   name: "FirebaseScreen",
   data() {
     return {
       phoneNumber: '',
-      code: ''
+      configCode: '',
+      authData:'',
+      appVerifier:''
     }
   },
+  mounted() {
+    this.authData = getAuth(app)
+    window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+      'size': 'normal',
+      'callback': (response) => {
+        // reCAPTCHA solved, allow signInWithPhoneNumber.
+        // ...
+        console.log(response)
+
+      },
+      'expired-callback': () => {
+        // Response expired. Ask user to solve reCAPTCHA again.
+        // ...
+        console.log("페이지가 만료되었습니다.")
+      }
+    }, this.authData)
+  },
   methods: {
-    recapture() {
-
-      const auth = getAuth()
-      window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
-        'size': 'normal',
-        'callback': (response) => {
-          // reCAPTCHA solved, allow signInWithPhoneNumber.
-          // ...
-          console.log(response)
-
-        },
-        'expired-callback': () => {
-          // Response expired. Ask user to solve reCAPTCHA again.
-          // ...
-          console.log("페이지가 만료되었습니다.")
-        }
-      }, auth)
-    },
     sendCode() {
-      const phoneNumber = this.phoneNumber
-      const appVerifier = window.recaptchaVerifier;
+      const phoneNumber = `+82${this.phoneNumber}`
+      this.appVerifier = window.recaptchaVerifier;
 
-      const auth = getAuth();
-      signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+      signInWithPhoneNumber(this.authData, phoneNumber, this.appVerifier)
           .then((confirmationResult) => {
             // SMS sent. Prompt user to type the code from the message, then sign the
             // user in with confirmationResult.confirm(code).
@@ -72,7 +64,7 @@ export default {
           });
     },
     loginProcess(){
-      const code = this.code
+      const code = this.configCode
       window.confirmationResult.confirm(code).then((result) => {
         // User signed in successfully.
         const user = result.user;
