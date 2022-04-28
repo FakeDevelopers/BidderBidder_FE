@@ -29,6 +29,8 @@
 import Modal from './common/AlertModal.vue'
 import { mapGetters, mapMutations } from 'vuex'
 import axios from 'axios'
+
+
 export default {
   name: "login",
   data() {
@@ -62,12 +64,15 @@ export default {
       }
     },
 
+
+
   },
   computed: {
     ...mapGetters({
       showModal: 'getModalState'
     })
-  }
+  },
+
 }
 
 </script>

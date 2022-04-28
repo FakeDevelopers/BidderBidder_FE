@@ -2,17 +2,21 @@
   <div>
     <MainScreen></MainScreen>
     <WriteScreen></WriteScreen>
+    <FirebaseScreen></FirebaseScreen>
   </div>
 </template>
 
 <script>
-import MainScreen from './components/MainScreen.vue'
-import WriteScreen from "@/components/WriteScreen";
+import MainScreen from './components/MainScreen'
+import WriteScreen from './components/WriteScreen'
+import FirebaseScreen from './components/FirebaseScreen'
+
 export default {
   name: 'App',
   components: {
     MainScreen,
-    WriteScreen
+    WriteScreen,
+    FirebaseScreen
   }
 }
 </script>
