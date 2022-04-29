@@ -7,32 +7,28 @@
     <div>
       <button @click="sendCode">발송</button>
       <p>인증번호: </p>
-      <input type="number" v-model="configCode">
-      <button @click="loginProcess">확인</button>
+      <input type="number" v-model="certificationCode">
+      <button @click="checkCode">확인</button>
     </div>
     <div id="recaptcha-container">
-    </div>
-    <div>
-
     </div>
   </div>
 </template>
 
 <script>
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth"
-import { app } from '@/firebase'
+import { firebaseInit } from '@/firebase'
 export default {
   name: "FirebaseScreen",
   data() {
     return {
       phoneNumber: '',
-      configCode: '',
+      certificationCode: '',
       authData:'',
-      appVerifier:''
     }
   },
   mounted() {
-    this.authData = getAuth(app)
+    this.authData = getAuth(firebaseInit)
     window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
       'size': 'normal',
       'callback': (response) => {
@@ -51,9 +47,8 @@ export default {
   methods: {
     sendCode() {
       const phoneNumber = `+82${this.phoneNumber}`
-      this.appVerifier = window.recaptchaVerifier;
 
-      signInWithPhoneNumber(this.authData, phoneNumber, this.appVerifier)
+      signInWithPhoneNumber(this.authData, phoneNumber, window.recaptchaVerifier)
           .then((confirmationResult) => {
             // SMS sent. Prompt user to type the code from the message, then sign the
             // user in with confirmationResult.confirm(code).
@@ -63,9 +58,8 @@ export default {
             console.log(error)
           });
     },
-    loginProcess(){
-      const code = this.configCode
-      window.confirmationResult.confirm(code).then((result) => {
+    checkCode(){
+      window.confirmationResult.confirm(this.certificationCode).then((result) => {
         // User signed in successfully.
         const user = result.user;
         console.log(user)
