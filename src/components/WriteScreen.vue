@@ -32,9 +32,9 @@ export default {
       form.append('board_content', '경매')
       form.append('board_title', '뭐뭐 팝니다.')
       form.append('category', this.category)
-      form.append('end_date','2022-05-02 14:00')
-      for(let i =0; i<this.imageList.length;i++){
-        form.append('files', this.imageList[i])
+      form.append('end_date','2022-05-29 19:00')
+      for(let image of this.imageList){
+        form.append('files', image)
       }
       form.append('hope_price' , this.hopePrice)
       form.append('opening_bid', this.openingBid)

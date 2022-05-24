@@ -1,33 +1,28 @@
 <template>
   <div>
-    <MainScreen></MainScreen>
-    <WriteScreen></WriteScreen>
-    <FirebaseScreen></FirebaseScreen>
+    <HeaderScreen></HeaderScreen>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import MainScreen from './components/MainScreen'
-import WriteScreen from './components/WriteScreen'
-import FirebaseScreen from './components/FirebaseScreen'
+import HeaderScreen from './components/HeaderScreen'
 
 export default {
   name: 'App',
   components: {
-    MainScreen,
-    WriteScreen,
-    FirebaseScreen
+    HeaderScreen,
   }
 }
 </script>
 
 <style>
+@import "css/reset.css";
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
