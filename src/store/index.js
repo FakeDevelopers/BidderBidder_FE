@@ -12,7 +12,8 @@ export default createStore({
     },
     SET_LIST(state, list) {
       state.productList = list
-    }
+    },
+
   },
   getters:{
     getModalState(state) {

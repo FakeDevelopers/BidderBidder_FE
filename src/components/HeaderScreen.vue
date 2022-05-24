@@ -31,7 +31,7 @@
 <script>
 import Modal from './common/AlertModal.vue'
 import { mapGetters, mapMutations } from 'vuex'
-import axios from 'axios'
+import { submitAccount } from "@/api";
 
 
 export default {
@@ -49,26 +49,9 @@ export default {
     ...mapMutations({
       modalOpen : 'setShowModal'
     }),
-    submitForm: async function() {
-
-      console.log(this.email, this.passwd)
-
-      const url = '/user/login'
-      const form = new FormData()
-
-      form.append('email', this.email)
-      form.append('passwd', this.passwd)
-
-      try {
-        const response = await axios.post(url,form)
-        console.log(response)
-      } catch(err){
-        console.log(err)
-      }
+    submitForm: function() {
+      submitAccount(this.email,this.passwd)
     },
-
-
-
   },
   computed: {
     ...mapGetters({

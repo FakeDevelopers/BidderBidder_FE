@@ -207,9 +207,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  list-style: none;
-  margin: 1vh 0 0 0;
-  padding: 0;
+  margin-top: 1vh;
 
 }
 .page-text{

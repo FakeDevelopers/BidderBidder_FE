@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { submitWrite } from "@/api";
 
 export default {
   name: "WriteScreen",
@@ -24,32 +24,8 @@ export default {
     }
   },
   methods:{
-    submitForm: async function() {
-
-      const url = '/board/write'
-      const form = new FormData()
-
-      form.append('board_content', '경매')
-      form.append('board_title', '뭐뭐 팝니다.')
-      form.append('category', this.category)
-      form.append('end_date','2022-05-29 19:00')
-      for(let image of this.imageList){
-        form.append('files', image)
-      }
-      form.append('hope_price' , this.hopePrice)
-      form.append('opening_bid', this.openingBid)
-      form.append('tick', this.tick)
-
-      try{
-        const response = await axios.post(url,form, {
-          headers: {
-            'Content-Type' : 'multipart/form-data'
-          }
-        })
-        console.log(response)
-      } catch(err){
-        console.log(err)
-      }
+    submitForm: function() {
+      submitWrite(this.category,this.imageList,this.hopePrice,this.openingBid,this.tick)
     },
     upload(e) {
       let fileList = e.target.files || e.dataTransfer.files
