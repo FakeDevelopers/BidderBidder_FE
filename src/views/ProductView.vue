@@ -25,7 +25,6 @@
     </ul>
     <div>
       <ul class="pagination-frame">
-
         <li @click="startPointChange(
             'start'
         )">
@@ -33,7 +32,6 @@
             〈〈
           </a>
         </li>
-
         <li
             class="page-left-btn"
             @click="startPointChange(
@@ -44,7 +42,6 @@
             〈
           </a>
         </li>
-
         <li
           v-for="n in paginationUnits"
           :key="n"
@@ -55,7 +52,6 @@
             {{n}}
           </a>
         </li>
-
         <li
             class="page-right-btn"
             @click="startPointChange(
@@ -66,7 +62,6 @@
             〉
           </a>
         </li>
-
         <li @click="startPointChange(
             'end'
         )">
