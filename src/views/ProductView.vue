@@ -13,13 +13,13 @@
           희망가: {{product.hopePrice}}
         </section>
         <section>
-          만료 날짜: {{product.expirationDate}}
-        </section>
-        <section>
           입찰자 수: {{product.bidderCount}}
         </section>
-        <section>
+        <section v-if="expirationCheck(product.expirationDate)">
           남은시간: {{remainedTime(product.expirationDate)}}
+        </section>
+        <section v-else>
+          남은시간: 기간 만료
         </section>
       </li>
     </ul>
@@ -96,7 +96,7 @@ export default {
       return this.$store.state.productList
     },
     startPage() {
-      return (this.startPoint -1) + 1
+      return this.startPoint
     },
     maxPage() {  // 총 페이지 수(and 최대 페이지 번호)
       return Math.floor(this.$store.state.productList.itemCount/this.listSize)
@@ -139,6 +139,12 @@ export default {
       })
 
       return dayjs(expiration).fromNow()
+    },
+    expirationCheck(expiration) {
+
+      let expirationDate = dayjs(expiration)
+
+      return expirationDate.diff(this.currentDate) > 0;
     },
     changeCurrentPage(page) {
       if(this.currentPage !== page) {
@@ -205,9 +211,6 @@ export default {
   margin: 1vh 0 0 0;
   padding: 0;
 
-  -ms-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
 }
 .page-text{
   text-decoration: none;
