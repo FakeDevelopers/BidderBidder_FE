@@ -7,10 +7,10 @@
            상품이름: {{product.boardTitle}}
          </section>
         <section>
-          최소 입찰가: {{product.openingBid}}
+          최소 입찰가: {{comma(product.openingBid)}}
         </section>
         <section>
-          희망가: {{product.hopePrice}}
+          희망가: {{comma(product.hopePrice)}}
         </section>
         <section>
           입찰자 수: {{product.bidderCount}}
@@ -107,10 +107,7 @@ export default {
       return end < this.maxPage? end : this.maxPage
     },
     paginationUnits() {
-      let units = []
-      for(let num = this.startPage; num <=this.endPage; num++) {
-        units.push(num)
-      }
+      let units = this.range(this.startPage,this.endPage)
       return units
     }
   },
@@ -180,8 +177,15 @@ export default {
         this.currentPage = this.startPoint
         this.$store.dispatch("FETCH_LIST",this.currentPage)
       }
+    },
+    range(start, end) {
+      return Array(end - start + 1).fill().map((_, idx) => start + idx)
+    },
+    comma(val){
+      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     }
   }
+
 
 }
 </script>
