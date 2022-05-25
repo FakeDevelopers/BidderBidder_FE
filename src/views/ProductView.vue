@@ -15,11 +15,8 @@
         <section>
           입찰자 수: {{product.bidderCount}}
         </section>
-        <section v-if="expirationCheck(product.expirationDate)">
+        <section>
           남은시간: {{remainedTime(product.expirationDate)}}
-        </section>
-        <section v-else>
-          남은시간: 기간 만료
         </section>
       </li>
     </ul>
@@ -99,7 +96,7 @@ export default {
       return this.startPoint
     },
     maxPage() {  // 총 페이지 수(and 최대 페이지 번호)
-      return Math.floor(this.$store.state.productList.itemCount/this.listSize)
+      return Math.round(this.$store.state.productList.itemCount/this.listSize)
     },
     endPage() {
       let end = this.startPage + this.pageCount -1
@@ -107,8 +104,7 @@ export default {
       return end < this.maxPage? end : this.maxPage
     },
     paginationUnits() {
-
-      return this.range(this.startPage,this.endPage)
+      return Array.from({length:this.endPage-this.startPage+1},(_,i) => this.startPage+i)
     }
   },
   methods: {
@@ -120,7 +116,7 @@ export default {
       dayjs.updateLocale('en', {
         relativeTime: {
           future: "%s ",
-          past: "%s 지남",
+          past: "기간 만료",
           s: '%d 초',
           m: "%d 분",
           mm: "%d 분",
@@ -137,16 +133,15 @@ export default {
 
       return dayjs(expiration).fromNow()
     },
-    expirationCheck(expiration) {
-
-      let expirationDate = dayjs(expiration)
-
-      return expirationDate.diff(this.currentDate) > 0;
-    },
     changeCurrentPage(page) {
       if(this.currentPage !== page) {
         this.currentPage = page
       }
+      this.$store.dispatch("FETCH_LIST",this.currentPage)
+    },
+    getPage(startPoint,currentPage){
+      this.startPoint= startPoint
+      this.currentPage = currentPage
       this.$store.dispatch("FETCH_LIST",this.currentPage)
     },
     startPointChange(location) {
@@ -154,32 +149,22 @@ export default {
         if(this.startPoint<=1){
           this.startPoint = 1
         }else{
-          this.startPoint-=this.pageCount
-          this.currentPage = this.startPoint
-          this.$store.dispatch("FETCH_LIST",this.currentPage)
+          this.getPage(this.startPoint-=this.pageCount,this.startPoint,)
         }
       }
       else if(location === 'right'){
         if(this.startPoint>=this.maxPage){
-          this.startPoint = this.maxPage-this.pageCount
+          this.startPoint = this.maxPage
+        }else{
+        this.getPage(this.startPoint+=this.pageCount,this.startPoint)
         }
-        this.startPoint+=this.pageCount
-        this.currentPage = this.startPoint
-        this.$store.dispatch("FETCH_LIST",this.currentPage)
       }
       else if(location === 'start'){
-        this.startPoint=1
-        this.currentPage = this.startPoint
-        this.$store.dispatch("FETCH_LIST",this.currentPage)
+        this.getPage(this.startPoint=1,this.startPoint)
       }
       else if(location === 'end'){
-        this.startPoint = this.maxPage
-        this.currentPage = this.startPoint
-        this.$store.dispatch("FETCH_LIST",this.currentPage)
+        this.getPage(this.startPoint = this.maxPage,this.startPoint)
       }
-    },
-    range(start, end) {
-      return Array(end - start + 1).fill().map((_, idx) => start + idx)
     },
     comma(val){
       return val.toLocaleString()
