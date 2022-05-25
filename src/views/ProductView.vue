@@ -182,7 +182,7 @@ export default {
       return Array(end - start + 1).fill().map((_, idx) => start + idx)
     },
     comma(val){
-      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      return String(val).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')
     }
   }
 
