@@ -15,8 +15,11 @@
         <section>
           입찰자 수: {{product.bidderCount}}
         </section>
-        <section>
+        <section v-if="hourCount(product.expirationDate)>3|| !expirationCheck(product.expirationDate)">
           남은시간: {{remainedTime(product.expirationDate)}}
+        </section>
+        <section v-else-if="hourCount(product.expirationDate)<=3 && minuteCount(product.expirationDate)>=30">
+          <TimerScreen :expiration-day="product.expirationDate"></TimerScreen>
         </section>
       </li>
     </ul>
@@ -73,6 +76,7 @@
 
 <script>
 import dayjs from 'dayjs'
+import TimerScreen from "@/components/TimerScreen";
 
 export default {
   name: "ProductView.vue",
@@ -82,8 +86,12 @@ export default {
       listSize: 15,
       pageCount: 10,
       currentPage: 1,
-      startPoint:1
+      startPoint:1,
+      hour: ''
     }
+  },
+  components:{
+    TimerScreen
   },
   created() {
     this.$store.dispatch("FETCH_LIST",this.listSize,this.currentPage)
@@ -106,6 +114,9 @@ export default {
     paginationUnits() {
       return Array.from({length:this.endPage-this.startPage+1},(_,i) => this.startPage+i)
     }
+
+  },
+  watch: {
   },
   methods: {
     remainedTime(expiration){
@@ -128,6 +139,10 @@ export default {
       })
 
       return dayjs(expiration).fromNow()
+    },
+    expirationCheck(expiration) {
+      let expirationDate = dayjs(expiration)
+      return expirationDate.diff(this.currentDate) > 0;
     },
     changeCurrentPage(page) {
       if(this.currentPage !== page) {
@@ -168,6 +183,15 @@ export default {
     },
     comma(val){
       return val.toLocaleString()
+    },
+    hourCount(expiration) {
+      return dayjs(expiration).diff(this.currentDate,"hour")
+    },
+    minuteCount(expiration) {
+      return dayjs(expiration).diff(this.currentDate,"minute")
+    },
+    timeDiff(expiration) {
+      return dayjs(expiration).valueOf() - this.currentDate.valueOf()
     }
   }
 
