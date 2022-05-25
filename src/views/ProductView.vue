@@ -139,9 +139,9 @@ export default {
       }
       this.$store.dispatch("FETCH_LIST",this.currentPage)
     },
-    getPage(startPoint,currentPage){
+    getPage(startPoint){
       this.startPoint= startPoint
-      this.currentPage = currentPage
+      this.currentPage = startPoint
       this.$store.dispatch("FETCH_LIST",this.currentPage)
     },
     startPointChange(location) {
@@ -149,21 +149,25 @@ export default {
         if(this.startPoint<=1){
           this.startPoint = 1
         }else{
-          this.getPage(this.startPoint-=this.pageCount,this.startPoint,)
+          this.startPoint-=this.pageCount
+          this.getPage(this.startPoint)
         }
       }
       else if(location === 'right'){
         if(this.startPoint>=this.maxPage){
           this.startPoint = this.maxPage
         }else{
-        this.getPage(this.startPoint+=this.pageCount,this.startPoint)
+          this.startPoint+=this.pageCount
+        this.getPage(this.startPoint)
         }
       }
       else if(location === 'start'){
-        this.getPage(this.startPoint=1,this.startPoint)
+        this.startPoint=1
+        this.getPage(this.startPoint)
       }
       else if(location === 'end'){
-        this.getPage(this.startPoint = this.maxPage,this.startPoint)
+        this.startPoint = this.maxPage
+        this.getPage(this.startPoint)
       }
     },
     comma(val){
