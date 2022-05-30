@@ -56,7 +56,6 @@ export default {
       return expirationDate.diff(this.currentDate) > 0;
     },
     setupCountdownTimer(expiration) { // 타이머
-      let dayjs = require('dayjs')
 
       let timer = setInterval(() => {
         console.log('시험')
