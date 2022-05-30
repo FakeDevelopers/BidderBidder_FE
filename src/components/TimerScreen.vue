@@ -1,18 +1,18 @@
 <template>
  <div>
-   <section v-show="expirationCheck(expirationDay)&&dayBool">
+   <section v-show="dayBool">
      남은시간: {{millisToDays(countdown)}}
    </section>
-   <section v-show="expirationCheck(expirationDay)&&otherHourBool">
+   <section v-show="otherHourBool">
      남은시간: {{millisToHours(countdown)}}
    </section>
-   <section v-show="expirationCheck(expirationDay)&&hourBool">
+   <section v-show="hourBool">
      남은시간: {{millisToHoursAndMinutes(countdown)}}
    </section>
-   <section v-show="expirationCheck(expirationDay)&&minuteBool">
+   <section v-show="minuteBool">
      남은시간: {{millisToMinutesAndSeconds(countdown)}}
    </section>
-   <section v-show="!expirationCheck(expirationDay)">
+   <section v-show="!minuteBool&&!expirationBool">
      남은시간: 기간 만료
    </section>
  </div>
@@ -34,8 +34,8 @@ export default {
       dayBool: false,
       otherHourBool:false,
       hourBool:false,
-      minuteBool:false
-
+      minuteBool:false,
+      expirationBool: false
     }
   },
   mounted() {
@@ -49,6 +49,7 @@ export default {
     this.otherHourBool=this.otherHourCheck(this.expirationDay)
     this.hourBool = this.hourCheck(this.expirationDay)
     this.minuteBool = this.minuteCheck(this.expirationDay)
+    this.expirationBool = this.expirationCheck(this.expirationDay)
   },
   methods: {
     expirationCheck(expiration) { // 기간 만료 구분
@@ -60,6 +61,11 @@ export default {
       let timer = setInterval(() => {
         console.log('시험')
         this.countdown = dayjs(expiration).valueOf() - dayjs().valueOf()
+
+        if(this.countdown<=0){
+          clearInterval(timer)
+        }
+
       }, 1000)
 
       if(this.stopTimer){ // 타이머 멈추기: 중복으로 타이머가 돌아가는걸 방지
@@ -99,7 +105,7 @@ export default {
     minuteCheck(expiration) { // 30분보다 작거나 같으면 true
       let compare = dayjs(expiration).valueOf() - dayjs().valueOf()
 
-      return compare <= this.minuteToMillis(30)
+      return compare <= this.minuteToMillis(30) && compare>0
     },
     hourCheck(expiration) { //3시간보다 작거나 같고 30분 보다 크면 true
       let compare = dayjs(expiration).valueOf() - dayjs().valueOf()
