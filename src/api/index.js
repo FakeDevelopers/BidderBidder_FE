@@ -39,7 +39,7 @@ async function submitWrite(category,imageList,hopePrice,openingBid,tick) {
     form.append('board_content', '경매')
     form.append('board_title', '뭐뭐 팝니다.')
     form.append('category', category)
-    form.append('end_date','2022-05-29 19:00')
+    form.append('end_date','2022-06-12 19:00')
     for(let image of imageList){
         form.append('files', image)
     }

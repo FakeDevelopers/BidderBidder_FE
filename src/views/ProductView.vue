@@ -2,7 +2,7 @@
   <div>
     <ul class="ListContainer">
       <li v-for="product in listItems.items" v-bind:key="product.title" class="listDesign">
-          <img :src="`${product.thumbnail}`" class="image-container" alt="상품 사진">
+          <img :src="product.thumbnail" class="image-container" alt="상품 사진">
          <section>
            상품이름: {{product.boardTitle}}
          </section>
@@ -15,11 +15,13 @@
         <section>
           입찰자 수: {{product.bidderCount}}
         </section>
-        <section v-if="hourCount(product.expirationDate)>3|| !expirationCheck(product.expirationDate)">
-          남은시간: {{remainedTime(product.expirationDate)}}
+        <section>
+          확인용 만료날짜: {{product.expirationDate}}
         </section>
-        <section v-else-if="hourCount(product.expirationDate)<=3 && minuteCount(product.expirationDate)>=30">
-          <TimerScreen :expiration-day="product.expirationDate"></TimerScreen>
+        <section>
+          <section>
+            <TimerScreen :expiration-day="product.expirationDate"></TimerScreen>
+          </section>
         </section>
       </li>
     </ul>
@@ -83,18 +85,17 @@ export default {
   data: function() {
     return {
       currentDate: dayjs(),
-      listSize: 15,
+      listSize: 5,
       pageCount: 10,
       currentPage: 1,
       startPoint:1,
-      hour: ''
     }
   },
   components:{
     TimerScreen
   },
   created() {
-    this.$store.dispatch("FETCH_LIST",this.listSize,this.currentPage)
+    this.$store.dispatch("FETCH_LIST",{listSize : this.listSize, currentPage :this.currentPage})
   },
   computed: {
     listItems() {
@@ -119,41 +120,16 @@ export default {
   watch: {
   },
   methods: {
-    remainedTime(expiration){
-      let relativeTime = require('dayjs/plugin/relativeTime')
-      let updateLocale = require('dayjs/plugin/updateLocale')
-      dayjs.extend(relativeTime)
-      dayjs.extend(updateLocale)
-      dayjs.updateLocale('en', {
-        relativeTime: {
-          future: "%s ",
-          past: "기간 만료",
-          s: '%d 초',
-          m: "%d 분",
-          mm: "%d 분",
-          h: "1 시간",
-          hh: "%d 시간",
-          d: "1일",
-          dd: "%d 일",
-        }
-      })
-
-      return dayjs(expiration).fromNow()
-    },
-    expirationCheck(expiration) {
-      let expirationDate = dayjs(expiration)
-      return expirationDate.diff(this.currentDate) > 0;
-    },
     changeCurrentPage(page) {
       if(this.currentPage !== page) {
         this.currentPage = page
       }
-      this.$store.dispatch("FETCH_LIST",this.currentPage)
+      this.$store.dispatch("FETCH_LIST",{listSize : this.listSize, currentPage :this.currentPage})
     },
     getPage(startPoint){
       this.startPoint= startPoint
       this.currentPage = startPoint
-      this.$store.dispatch("FETCH_LIST",this.currentPage)
+      this.$store.dispatch("FETCH_LIST",{listSize : this.listSize, currentPage :this.currentPage})
     },
     startPointChange(location) {
       if (location === 'left'){
@@ -182,20 +158,13 @@ export default {
       }
     },
     comma(val){
+      if(val===null){
+        return '없음'
+      }
+
       return val.toLocaleString()
     },
-    hourCount(expiration) {
-      return dayjs(expiration).diff(this.currentDate,"hour")
-    },
-    minuteCount(expiration) {
-      return dayjs(expiration).diff(this.currentDate,"minute")
-    },
-    timeDiff(expiration) {
-      return dayjs(expiration).valueOf() - this.currentDate.valueOf()
-    }
   }
-
-
 }
 </script>
 

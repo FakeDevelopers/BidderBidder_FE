@@ -13,7 +13,6 @@ export default createStore({
     SET_LIST(state, list) {
       state.productList = list
     },
-
   },
   getters:{
     getModalState(state) {
@@ -21,11 +20,12 @@ export default createStore({
     }
   },
   actions: {
-    async FETCH_LIST({ commit },pageNum) {
-      const response = await fetchList(15,pageNum)
+    async FETCH_LIST({ commit },pageInfo) {
+      const response = await fetchList(pageInfo.listSize,pageInfo.currentPage)
       commit('SET_LIST', response.data)
       return response
     }
+
   },
   modules: {
   }
