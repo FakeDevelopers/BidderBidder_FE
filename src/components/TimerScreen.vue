@@ -17,7 +17,6 @@ export default {
   },
   data: function (){
     return{
-      testDate: '2022-05-31 15:32',
       currentDate: dayjs(),
       countdown: 0,
       stopTimer: false,
@@ -32,13 +31,13 @@ export default {
     this.setupCountdownTimer()
   },
   beforeUpdate() { //새로 타이머가 안나타나게 stopTimer 을 true 로 해서 타이머를 멈춤
-    this.countdown = dayjs(this.testDate).valueOf() - dayjs().valueOf() //페이지 넘어가면 시간 바껴야하는데 안바뀌어서 넣음
+    this.countdown = dayjs(this.expirationDay).valueOf() - dayjs().valueOf() //페이지 넘어가면 시간 바껴야하는데 안바뀌어서 넣음
     // 밑의 변수들로 화면에 보일 시간 관리
-    this.dayBool = this.dayCheck(this.testDate)
-    this.otherHourBool=this.otherHourCheck(this.testDate)
-    this.hourBool = this.hourCheck(this.testDate)
-    this.minuteBool = this.minuteCheck(this.testDate)
-    this.expirationBool = dayjs(this.testDate).diff(this.currentDate)
+    this.dayBool = this.dayCheck(this.expirationDay)
+    this.otherHourBool=this.otherHourCheck(this.expirationDay)
+    this.hourBool = this.hourCheck(this.expirationDay)
+    this.minuteBool = this.minuteCheck(this.expirationDay)
+    this.expirationBool = dayjs(this.expirationDay).diff(this.currentDate)
   },
   watch : {
     pageCheck() {
@@ -54,7 +53,7 @@ export default {
     setupCountdownTimer() { // 타이머
       let timer = setInterval(() => {
         console.log('시험')
-        this.countdown = dayjs(this.testDate).valueOf() - dayjs().valueOf() // 초마다 계산을 해야 countdown 이 0이되면(기간만료가 되면) 타이머가 멈춤
+        this.countdown = dayjs(this.expirationDay).valueOf() - dayjs().valueOf() // 초마다 계산을 해야 countdown 이 0이되면(기간만료가 되면) 타이머가 멈춤
 
         if(this.countdown<=0||this.$store.state.pageMove){
           this.$store.state.pageMove = false
