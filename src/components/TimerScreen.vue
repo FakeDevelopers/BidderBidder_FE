@@ -79,7 +79,7 @@ export default {
       }
       if(this.hourBool){
         let secondZero = seconds < 10 ? '0' : ''
-        return (hours!==0? hours + '시간' : '') + (minutes!==0? minutes + '분' : (seconds < 10 ? '0' : '') + secondZero + seconds + '초' )
+        return (hours!==0? hours + '시간' : '') + (minutes!==0? minutes + '분' : secondZero + seconds + '초' )
       }
       if(this.minuteBool){
         return (minutes!==0? minutes + '분 ' : '') + (seconds < 10 ? '0' : '') + seconds + '초'
