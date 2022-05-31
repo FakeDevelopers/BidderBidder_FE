@@ -5,6 +5,7 @@ export default createStore({
   state: {
     showModal: false,
     productList: [],
+    pageMove: false
   },
   mutations: {
     setShowModal(state, value){

@@ -20,7 +20,7 @@
         </section>
         <section>
           <section>
-            <TimerScreen :expiration-day="product.expirationDate"></TimerScreen>
+            <TimerScreen :expiration-day="product.expirationDate" :page-check="this.$store.state.pageMove"></TimerScreen>
           </section>
         </section>
       </li>
@@ -85,7 +85,7 @@ export default {
   data: function() {
     return {
       currentDate: dayjs(),
-      listSize: 5,
+      listSize: 1,
       pageCount: 10,
       currentPage: 1,
       startPoint:1,
@@ -121,15 +121,15 @@ export default {
   },
   methods: {
     changeCurrentPage(page) {
-      if(this.currentPage !== page) {
-        this.currentPage = page
-      }
+      this.currentPage = page
       this.$store.dispatch("FETCH_LIST",{listSize : this.listSize, currentPage :this.currentPage})
+      this.$store.state.pageMove = true
     },
     getPage(startPoint){
       this.startPoint= startPoint
       this.currentPage = startPoint
       this.$store.dispatch("FETCH_LIST",{listSize : this.listSize, currentPage :this.currentPage})
+      this.$store.state.pageMove = true
     },
     startPointChange(location) {
       if (location === 'left'){
