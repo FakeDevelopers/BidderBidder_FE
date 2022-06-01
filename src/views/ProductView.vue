@@ -4,16 +4,16 @@
       <li v-for="product in listItems.items" v-bind:key="product.title" class="listDesign">
           <img :src="product.thumbnail" class="image-container" alt="상품 사진">
          <section>
-           상품이름: {{product.boardTitle}}
+           {{$t('productName')}}: {{product.boardTitle}}
          </section>
         <section>
-          최소 입찰가: {{comma(product.openingBid)}}
+          {{$t('openingBid')}}: {{comma(product.openingBid)}}
         </section>
         <section>
-          희망가: {{comma(product.hopePrice)}}
+          {{$t('hopePrice')}}: {{comma(product.hopePrice)}}
         </section>
         <section>
-          입찰자 수: {{product.bidderCount}}
+          {{$t('bidderCount')}}: {{product.bidderCount}}
         </section>
         <section>
           <section>

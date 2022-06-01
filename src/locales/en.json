@@ -1,0 +1,15 @@
+{
+  "productName": "Product Name",
+  "openingBid" : "Opening Bid",
+  "hopePrice": "Hope Price",
+  "bidderCount": "Bidder Count",
+  "automaticLogin": "Would you want to sign in with automatically?",
+  "login": "sign in",
+  "productList": "Product List",
+  "remainedTime": "Remained Time",
+  "expired" : "Expired",
+  "days": "d",
+  "hours": "hr",
+  "minutes": "min",
+  "seconds": "sec"
+}

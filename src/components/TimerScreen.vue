@@ -1,7 +1,7 @@
 <template>
   <div>
     <section>
-      남은시간: {{ millisToDate(countdown) }}
+      {{$t('remainedTime')}}: {{ millisToDate(countdown) }}
     </section>
   </div>
 </template>
@@ -70,24 +70,24 @@ export default {
 
       if (this.dayBool) {
         const days = Math.floor(millis / (24 * 60 * 60000))
-        return days + '일'
+        return days + this.$t('days')
       }
       if (this.otherHourBool) {
         const hours = Math.floor((millis / (60 * 60000)) % 24)
-        return hours + '시간'
+        return hours + this.$t('hours')
       }
       if (this.hourBool) {
         const hours = Math.floor((millis / (60 * 60000)) % 24)
         const minutes = Math.floor((millis / 60000) % 60)
-        return hours + '시간' + (minutes !== 0 ? minutes + '분' : '')
+        return hours + this.$t('hours') + (minutes !== 0 ? minutes + this.$t('minutes') : '')
       }
       if (this.minuteBool) {
         const minutes = Math.floor((millis / 60000) % 60)
         const seconds = ((millis % 60000) / 1000).toFixed(0)
-        return (minutes !== 0 ? minutes + '분 ' : '') + (seconds < 10 ? '0' : '') + seconds + '초'
+        return (minutes !== 0 ? minutes + this.$t('minutes') : '') + (seconds < 10 ? '0' : '') + seconds + this.$t('seconds')
       }
       if (this.expirationBool) {
-        return '기간만료'
+        return this.$t('expired')
       }
     },
     minuteCheck(expiration) { // 1시간보다 작거나 같으면 true

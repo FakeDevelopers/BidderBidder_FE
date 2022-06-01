@@ -1,11 +1,16 @@
 <template>
   <div>
     <nav class="header">
-      <router-link to="/products"> 상품리스트</router-link>
-      <button @click="modalOpen(true)" class="LoginBtn">로그인</button>
+      <router-link to="/products"> {{$t('productList')}}</router-link>
+      <button @click="modalOpen(true)" class="LoginBtn">{{$t('login')}}</button>
+      <select v-model="$i18n.locale">
+        <option v-for="locale in $i18n.availableLocales" :key="`locale-${locale}`" :value="locale">
+          {{locale}}
+        </option>
+      </select>
       <modal v-if="this.showModal">
         <template v-slot:header>
-          <h3>로그인</h3>
+          <h3>{{$t('login')}}</h3>
         </template>
         <template v-slot:body>
           <form v-on:submit.prevent="submitForm">
@@ -19,11 +24,11 @@
               <input id="password" type="password" v-model="passwd">
             </div>
             <br><br>
-            <button type="submit">로그인</button>
+            <button type="submit">{{$t('login')}}</button>
           </form>
         </template>
         <template v-slot:footer>
-          <label><input type="checkbox" value="true">자동로그인 하시겠습니까?</label>
+          <label><input type="checkbox" value="true">{{ $t('automaticLogin') }}</label>
         </template>
       </modal>
     </nav>
