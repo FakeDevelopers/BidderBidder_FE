@@ -16,11 +16,8 @@
           입찰자 수: {{product.bidderCount}}
         </section>
         <section>
-          확인용 만료날짜: {{product.expirationDate}}
-        </section>
-        <section>
           <section>
-            <TimerScreen :expiration-day="product.expirationDate" :page-check="this.$store.state.pageMove"></TimerScreen>
+            <TimerScreen :expiration-day="product.expirationDate"></TimerScreen>
           </section>
         </section>
       </li>
@@ -77,14 +74,12 @@
 </template>
 
 <script>
-import dayjs from 'dayjs'
 import TimerScreen from "@/components/TimerScreen";
 
 export default {
   name: "ProductView.vue",
   data: function() {
     return {
-      currentDate: dayjs(),
       listSize: 1,
       pageCount: 10,
       currentPage: 1,
@@ -116,8 +111,6 @@ export default {
       return Array.from({length:this.endPage-this.startPage+1},(_,i) => this.startPage+i)
     }
 
-  },
-  watch: {
   },
   methods: {
     changeCurrentPage(page) {

@@ -18,6 +18,9 @@ export default createStore({
   getters:{
     getModalState(state) {
       return state.showModal
+    },
+    getPageMove(state) {
+      return state.pageMove
     }
   },
   actions: {
@@ -26,7 +29,6 @@ export default createStore({
       commit('SET_LIST', response.data)
       return response
     }
-
   },
   modules: {
   }

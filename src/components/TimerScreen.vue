@@ -7,17 +7,15 @@
 </template>
 
 <script>
-import dayjs from "dayjs"
+import {mapGetters} from "vuex";
 
 export default {
   name: "TimerScreen.vue",
   props:{
-    expirationDay: String,
-    pageCheck: Boolean
+    expirationDay: String
   },
   data: function (){
     return{
-      currentDate: dayjs(),
       countdown: 0,
       stopTimer: false,
       dayBool: false,
@@ -30,62 +28,67 @@ export default {
   mounted() {
     this.setupCountdownTimer()
   },
-  beforeUpdate() { //새로 타이머가 안나타나게 stopTimer 을 true 로 해서 타이머를 멈춤
-    this.countdown = dayjs(this.expirationDay).valueOf() - dayjs().valueOf() //페이지 넘어가면 시간 바껴야하는데 안바뀌어서 넣음
-    // 밑의 변수들로 화면에 보일 시간 관리
-    this.dayBool = this.dayCheck(this.expirationDay)
-    this.otherHourBool=this.otherHourCheck(this.expirationDay)
-    this.hourBool = this.hourCheck(this.expirationDay)
-    this.minuteBool = this.minuteCheck(this.expirationDay)
-    this.expirationBool = dayjs(this.expirationDay).diff(this.currentDate)
-  },
   watch : {
-    pageCheck() {
-      if(this.$store.state.pageMove){
-        this.pageMoveCheck()
+     pageCheck() {
+      if(this.pageCheck){
+        this.$store.state.pageMove = false
+        if(this.countdown<0){
+          this.countdown = this.expirationCount - new Date().getTime()
+          this.setupCountdownTimer()
+        }
+        console.log("페이지 이동")
+
       }
-      else{
-        clearInterval()
-      }
+    },
+    countdown() {
+      this.dayBool = this.dayCheck(this.countdown)
+      this.otherHourBool=this.otherHourCheck(this.countdown)
+      this.hourBool = this.hourCheck(this.countdown)
+      this.minuteBool = this.minuteCheck(this.countdown)
+      this.expirationBool = this.expirationCount - new Date().getTime()
     }
+  },
+  computed:{
+    expirationCount(){
+      return new Date(this.expirationDay).getTime()
+    },
+    ...mapGetters({
+      pageCheck: 'getPageMove'
+    })
   },
   methods: {
     setupCountdownTimer() { // 타이머
       let timer = setInterval(() => {
         console.log('시험')
-        this.countdown = dayjs(this.expirationDay).valueOf() - dayjs().valueOf() // 초마다 계산을 해야 countdown 이 0이되면(기간만료가 되면) 타이머가 멈춤
-
-        if(this.countdown<=0||this.$store.state.pageMove){
-          this.$store.state.pageMove = false
+        this.countdown = this.expirationCount - new Date().getTime()
+        if(this.countdown<=0){
           clearInterval(timer)
-
         }
       }, 1000)
     },
-    pageMoveCheck(){
-        console.log("페이지 이동")
-        this.setupCountdownTimer()
-    },
+
     millisToDate(millis){
-      const days = Math.floor(millis / (24 * 60 * 60000))
-      const hours = Math.floor((millis / (60 * 60000))%24)
-      const minutes = Math.floor((millis / 60000) % 60)
-      const seconds = ((millis % 60000) / 1000).toFixed(0)
+
       if(this.dayBool){
+        const days = Math.floor(millis / (24 * 60 * 60000))
         return days + '일'
       }
       if(this.otherHourBool){
+        const hours = Math.floor((millis / (60 * 60000))%24)
         return hours + '시간'
       }
       if(this.hourBool){
-        let secondZero = seconds < 10 ? '0' : ''
-        return (hours!==0? hours + '시간' : '') + (minutes!==0? minutes + '분' : secondZero + seconds + '초' )
+        const hours = Math.floor((millis / (60 * 60000))%24)
+        const minutes = Math.floor((millis / 60000) % 60)
+        return (hours!==0? hours + '시간' : '') + (minutes!==0? minutes + '분' : '')
       }
       if(this.minuteBool){
+        const minutes = Math.floor((millis / 60000) % 60)
+        const seconds = ((millis % 60000) / 1000).toFixed(0)
         return (minutes!==0? minutes + '분 ' : '') + (seconds < 10 ? '0' : '') + seconds + '초'
       }
       if(this.expirationBool){
-        return '기간 만료'
+        return '기간만료'
       }
     },
     hourToMillis(hour) { //비교를 위한 시간 연산
@@ -95,24 +98,20 @@ export default {
       return minute *60 *1000
     },
     minuteCheck(expiration) { // 30분보다 작거나 같으면 true
-      let compare = dayjs(expiration).valueOf() - dayjs().valueOf()
 
-      return compare <= this.minuteToMillis(30) && compare>0
+      return expiration <= this.minuteToMillis(30) && expiration>0
     },
     hourCheck(expiration) { //3시간보다 작거나 같고 30분 보다 크면 true
-      let compare = dayjs(expiration).valueOf() - dayjs().valueOf()
 
-      return compare <= this.hourToMillis(3) && this.countdown > this.minuteToMillis(30)
+      return expiration <= this.hourToMillis(3) && this.countdown > this.minuteToMillis(30)
     },
     otherHourCheck(expiration) { //24시간 보다 작거나 같고 3시간보다 크면 true
-      let compare = dayjs(expiration).valueOf() - dayjs().valueOf()
 
-      return compare < this.hourToMillis(24) && this.countdown > this.hourToMillis(3)
+      return expiration < this.hourToMillis(24) && this.countdown > this.hourToMillis(3)
     },
     dayCheck(expiration) { // 24시간 보다 크거나 같으면 true
-      let compare = dayjs(expiration).valueOf() - dayjs().valueOf()
 
-      return compare >= this.hourToMillis(24)
+      return expiration >= this.hourToMillis(24)
     }
   }
 }
