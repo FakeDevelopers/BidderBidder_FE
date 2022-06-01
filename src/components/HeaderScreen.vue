@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="header">
-      <router-link to="/products"> 상품리스트 </router-link>
+      <router-link to="/products"> 상품리스트</router-link>
       <button @click="modalOpen(true)" class="LoginBtn">로그인</button>
       <modal v-if="this.showModal">
         <template v-slot:header>
@@ -12,11 +12,13 @@
             <div>
               <label for="username">id: </label>
               <input id="username" type="text" v-model="email">
-            </div><br>
+            </div>
+            <br>
             <div>
               <label for="password">pw:</label>
               <input id="password" type="password" v-model="passwd">
-            </div><br><br>
+            </div>
+            <br><br>
             <button type="submit">로그인</button>
           </form>
         </template>
@@ -30,14 +32,14 @@
 
 <script>
 import Modal from './common/AlertModal.vue'
-import { mapGetters, mapMutations } from 'vuex'
-import { submitAccount } from "@/api";
+import {mapGetters, mapMutations} from 'vuex'
+import {submitAccount} from "@/api";
 
 
 export default {
   name: "login",
   data() {
-    return{
+    return {
       email: '',
       passwd: '',
     }
@@ -47,10 +49,10 @@ export default {
   },
   methods: {
     ...mapMutations({
-      modalOpen : 'setShowModal'
+      modalOpen: 'setShowModal'
     }),
-    submitForm: function() {
-      submitAccount(this.email,this.passwd)
+    submitForm: function () {
+      submitAccount(this.email, this.passwd)
     },
   },
   computed: {
@@ -64,12 +66,13 @@ export default {
 </script>
 
 <style scoped>
-.header{
+.header {
   display: flex;
   font-size: 15px;
   box-shadow: 0 5px 5px -5px rgb(0 0 0 / 20%);
   align-items: center;
 }
+
 .LoginBtn {
   margin-left: auto;
   margin-right: 16px;

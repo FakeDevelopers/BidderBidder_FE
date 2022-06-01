@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-async function fetchList(listNum,pageNum) {
+async function fetchList(listNum, pageNum) {
     try {
-        return await axios.get('/board/getPageProductList',{
+        return await axios.get('/board/getPageProductList', {
             params: {
                 listCount: listNum,
                 page: pageNum
@@ -13,7 +13,7 @@ async function fetchList(listNum,pageNum) {
     }
 }
 
-async function submitAccount(email,passwd) {
+async function submitAccount(email, passwd) {
 
     console.log(email, passwd)
 
@@ -24,14 +24,14 @@ async function submitAccount(email,passwd) {
     form.append('passwd', passwd)
 
     try {
-        const response = await axios.post(url,form)
+        const response = await axios.post(url, form)
         console.log(response)
-    } catch(err){
+    } catch (err) {
         console.log(err)
     }
 }
 
-async function submitWrite(category,imageList,hopePrice,openingBid,tick) {
+async function submitWrite(category, imageList, hopePrice, openingBid, tick) {
 
     const url = '/board/write'
     const form = new FormData()
@@ -39,24 +39,24 @@ async function submitWrite(category,imageList,hopePrice,openingBid,tick) {
     form.append('board_content', '경매')
     form.append('board_title', '뭐뭐 팝니다.')
     form.append('category', category)
-    form.append('end_date','2022-06-12 19:00')
-    for(let image of imageList){
+    form.append('end_date', '2022-06-12 19:00')
+    for (let image of imageList) {
         form.append('files', image)
     }
-    form.append('hope_price' , hopePrice)
+    form.append('hope_price', hopePrice)
     form.append('opening_bid', openingBid)
     form.append('tick', tick)
 
-    try{
-        const response = await axios.post(url,form, {
+    try {
+        const response = await axios.post(url, form, {
             headers: {
-                'Content-Type' : 'multipart/form-data'
+                'Content-Type': 'multipart/form-data'
             }
         })
         console.log(response)
-    } catch(err){
+    } catch (err) {
         console.log(err)
     }
 }
 
-export { fetchList, submitAccount ,submitWrite }
+export {fetchList, submitAccount, submitWrite}

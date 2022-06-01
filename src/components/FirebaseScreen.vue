@@ -16,15 +16,16 @@
 </template>
 
 <script>
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth"
-import { firebaseInit } from '@/firebase'
+import {getAuth, RecaptchaVerifier, signInWithPhoneNumber} from "firebase/auth"
+import {firebaseInit} from '@/firebase'
+
 export default {
   name: "FirebaseScreen",
   data() {
     return {
       phoneNumber: '',
       certificationCode: '',
-      authData:'',
+      authData: '',
     }
   },
   mounted() {
@@ -55,10 +56,10 @@ export default {
             window.confirmationResult = confirmationResult;
             // ...
           }).catch((error) => {
-            console.log(error)
-          });
+        console.log(error)
+      });
     },
-    checkCode(){
+    checkCode() {
       window.confirmationResult.confirm(this.certificationCode).then((result) => {
         // User signed in successfully.
         const user = result.user;

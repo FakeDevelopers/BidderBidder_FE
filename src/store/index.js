@@ -1,35 +1,34 @@
-import { createStore } from 'vuex'
+import {createStore} from 'vuex'
 import {fetchList} from '../api/index'
 
 export default createStore({
-  state: {
-    showModal: false,
-    productList: [],
-    pageMove: false
-  },
-  mutations: {
-    setShowModal(state, value){
-      this.state.showModal = value
+    state: {
+        showModal: false,
+        productList: [],
+        pageMove: false
     },
-    SET_LIST(state, list) {
-      state.productList = list
+    mutations: {
+        setShowModal(state, value) {
+            this.state.showModal = value
+        },
+        SET_LIST(state, list) {
+            state.productList = list
+        },
     },
-  },
-  getters:{
-    getModalState(state) {
-      return state.showModal
+    getters: {
+        getModalState(state) {
+            return state.showModal
+        },
+        getPageMove(state) {
+            return state.pageMove
+        }
     },
-    getPageMove(state) {
-      return state.pageMove
-    }
-  },
-  actions: {
-    async FETCH_LIST({ commit },pageInfo) {
-      const response = await fetchList(pageInfo.listSize,pageInfo.currentPage)
-      commit('SET_LIST', response.data)
-      return response
-    }
-  },
-  modules: {
-  }
+    actions: {
+        async FETCH_LIST({commit}, pageInfo) {
+            const response = await fetchList(pageInfo.listSize, pageInfo.currentPage)
+            commit('SET_LIST', response.data)
+            return response
+        }
+    },
+    modules: {}
 })
