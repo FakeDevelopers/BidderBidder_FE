@@ -17,6 +17,7 @@ export default {
   data: function () {
     return {
       countdown: 0,
+      expirationTime: 0,
       stopTimer: false,
       dayBool: false,
       otherHourBool: false,
@@ -26,6 +27,7 @@ export default {
     }
   },
   mounted() {
+    this.expirationTime = new Date(this.expirationDay).getTime()
     this.setupCountdownTimer()
   },
   watch: {
@@ -33,7 +35,7 @@ export default {
       if (this.pageCheck) {
         this.$store.state.pageMove = false
         if (this.countdown < 0) {
-          this.countdown = this.expirationCount - new Date().getTime()
+          this.countdown = this.expirationTime - new Date().getTime()
           this.setupCountdownTimer()
         }
       }
@@ -43,13 +45,13 @@ export default {
       this.otherHourBool = this.otherHourCheck(this.countdown)
       this.hourBool = this.hourCheck(this.countdown)
       this.minuteBool = this.minuteCheck(this.countdown)
-      this.expirationBool = this.expirationCount - new Date().getTime()
+      this.expirationBool = this.expirationTime - new Date().getTime()
+    },
+    expirationDay(newVal) {
+      this.expirationTime = new Date(newVal).getTime()
     }
   },
   computed: {
-    expirationCount() {
-      return new Date(this.expirationDay).getTime()
-    },
     ...mapGetters({
       pageCheck: 'getPageMove'
     })
@@ -57,7 +59,7 @@ export default {
   methods: {
     setupCountdownTimer() { // 타이머
       let timer = setInterval(() => {
-        this.countdown = this.expirationCount - new Date().getTime()
+        this.countdown = this.expirationTime - new Date().getTime()
         if (this.countdown <= 0) {
           clearInterval(timer)
         }
@@ -77,7 +79,7 @@ export default {
       if (this.hourBool) {
         const hours = Math.floor((millis / (60 * 60000)) % 24)
         const minutes = Math.floor((millis / 60000) % 60)
-        return (hours !== 0 ? hours + '시간' : '') + (minutes !== 0 ? minutes + '분' : '')
+        return hours + '시간' + (minutes !== 0 ? minutes + '분' : '')
       }
       if (this.minuteBool) {
         const minutes = Math.floor((millis / 60000) % 60)
@@ -88,27 +90,21 @@ export default {
         return '기간만료'
       }
     },
-    hourToMillis(hour) { //비교를 위한 시간 연산
-      return hour * 60 * 60 * 1000
-    },
-    minuteToMillis(minute) { // 비교를 위한 분 연산
-      return minute * 60 * 1000
-    },
-    minuteCheck(expiration) { // 30분보다 작거나 같으면 true
+    minuteCheck(expiration) { // 1시간보다 작거나 같으면 true
 
-      return expiration <= this.minuteToMillis(30) && expiration > 0
+      return expiration <= (60 * 60 * 1000) && expiration > 0
     },
-    hourCheck(expiration) { //3시간보다 작거나 같고 30분 보다 크면 true
+    hourCheck(expiration) { //3시간보다 작거나 같고 1시간 보다 크면 true
 
-      return expiration <= this.hourToMillis(3) && this.countdown > this.minuteToMillis(30)
+      return expiration <= 3 * 60 * 60000 && expiration > 60 * 60000
     },
     otherHourCheck(expiration) { //24시간 보다 작거나 같고 3시간보다 크면 true
 
-      return expiration < this.hourToMillis(24) && this.countdown > this.hourToMillis(3)
+      return expiration < 24 * 60 * 60000 && expiration > 3 * 60 * 60000
     },
     dayCheck(expiration) { // 24시간 보다 크거나 같으면 true
 
-      return expiration >= this.hourToMillis(24)
+      return expiration >= 24 * 60 * 60000
     }
   }
 }
