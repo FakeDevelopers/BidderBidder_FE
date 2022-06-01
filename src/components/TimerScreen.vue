@@ -36,8 +36,6 @@ export default {
           this.countdown = this.expirationCount - new Date().getTime()
           this.setupCountdownTimer()
         }
-        console.log("페이지 이동")
-
       }
     },
     countdown() {
