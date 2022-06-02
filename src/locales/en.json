@@ -11,5 +11,6 @@
   "days": "d",
   "hours": "hr",
   "minutes": "min",
-  "seconds": "sec"
+  "seconds": "sec",
+  "none": "None"
 }

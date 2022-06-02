@@ -152,7 +152,7 @@ export default {
     },
     comma(val){
       if(val===null){
-        return '없음'
+        return this.$t('none')
       }
 
       return val.toLocaleString()
