@@ -16,15 +16,16 @@
 </template>
 
 <script>
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth"
-import { firebaseInit } from '@/firebase'
+import {getAuth, RecaptchaVerifier, signInWithPhoneNumber} from "firebase/auth"
+import {firebaseInit} from '@/firebase'
+
 export default {
   name: "FirebaseScreen",
   data() {
     return {
       phoneNumber: '',
       certificationCode: '',
-      authData:'',
+      authData: '',
     }
   },
   mounted() {
@@ -40,7 +41,6 @@ export default {
       'expired-callback': () => {
         // Response expired. Ask user to solve reCAPTCHA again.
         // ...
-        console.log("페이지가 만료되었습니다.")
       }
     }, this.authData)
   },
@@ -55,10 +55,10 @@ export default {
             window.confirmationResult = confirmationResult;
             // ...
           }).catch((error) => {
-            console.log(error)
-          });
+        console.log(error)
+      });
     },
-    checkCode(){
+    checkCode() {
       window.confirmationResult.confirm(this.certificationCode).then((result) => {
         // User signed in successfully.
         const user = result.user;

@@ -1,0 +1,16 @@
+{
+  "productName": "상품 이름",
+  "openingBid": "최소 입찰가",
+  "hopePrice": "희망가",
+  "bidderCount": "입찰자 수",
+  "automaticLogin": "자동으로 로그인 하시겠습니까?",
+  "login" : "로그인",
+  "productList" : "상품 리스트",
+  "remainedTime": "남은시간",
+  "expired": "기간 만료",
+  "days": "일",
+  "hours": "시간",
+  "minutes": "분",
+  "seconds": "초",
+  "none": "없음"
+}
