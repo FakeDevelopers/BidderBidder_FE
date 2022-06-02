@@ -34,7 +34,6 @@ export default {
       for (let image of fileList) {
         this.imageList.push(image)
       }
-      console.log(this.imageList)
     }
   },
 }

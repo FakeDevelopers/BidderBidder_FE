@@ -41,10 +41,10 @@ export default {
       }
     },
     countdown() {
-      this.dayBool = this.dayCheck(this.countdown)
-      this.otherHourBool = this.otherHourCheck(this.countdown)
-      this.hourBool = this.hourCheck(this.countdown)
-      this.minuteBool = this.minuteCheck(this.countdown)
+      this.dayBool = this.dayCheck()
+      this.otherHourBool = this.otherHourCheck()
+      this.hourBool = this.hourCheck()
+      this.minuteBool = this.minuteCheck()
       this.expirationBool = this.expirationTime - new Date().getTime()
     },
     expirationDay(newVal) {
@@ -90,21 +90,21 @@ export default {
         return this.$t('expired')
       }
     },
-    minuteCheck(expiration) { // 1시간보다 작거나 같으면 true
+    minuteCheck() { // 1시간보다 작거나 같으면 true
 
-      return expiration <= (60 * 60 * 1000) && expiration > 0
+      return this.countdown <= (60 * 60 * 1000) && this.countdown > 0
     },
-    hourCheck(expiration) { //3시간보다 작거나 같고 1시간 보다 크면 true
+    hourCheck() { //3시간보다 작거나 같고 1시간 보다 크면 true
 
-      return expiration <= 3 * 60 * 60000 && expiration > 60 * 60000
+      return this.countdown <= 3 * 60 * 60000 && this.countdown > 60 * 60000
     },
-    otherHourCheck(expiration) { //24시간 보다 작거나 같고 3시간보다 크면 true
+    otherHourCheck() { //24시간 보다 작거나 같고 3시간보다 크면 true
 
-      return expiration < 24 * 60 * 60000 && expiration > 3 * 60 * 60000
+      return this.countdown < 24 * 60 * 60000 && this.countdown > 3 * 60 * 60000
     },
-    dayCheck(expiration) { // 24시간 보다 크거나 같으면 true
+    dayCheck() { // 24시간 보다 크거나 같으면 true
 
-      return expiration >= 24 * 60 * 60000
+      return this.countdown >= 24 * 60 * 60000
     }
   }
 }
