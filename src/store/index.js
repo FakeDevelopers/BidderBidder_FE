@@ -21,6 +21,9 @@ export default createStore({
         },
         getPageMove(state) {
             return state.pageMove
+        },
+        getProductList(state) {
+            return state.productList
         }
     },
     actions: {

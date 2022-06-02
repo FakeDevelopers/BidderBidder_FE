@@ -75,12 +75,13 @@
 
 <script>
 import TimerScreen from "@/components/TimerScreen";
+import {mapGetters} from "vuex";
 
 export default {
   name: "ProductView.vue",
   data: function() {
     return {
-      listSize: 1,
+      listSize: 15,
       pageCount: 10,
       currentPage: 1,
       startPoint:1,
@@ -93,14 +94,14 @@ export default {
     this.$store.dispatch("FETCH_LIST",{listSize : this.listSize, currentPage :this.currentPage})
   },
   computed: {
-    listItems() {
-      return this.$store.state.productList
-    },
+    ...mapGetters({
+      listItems : 'getProductList'
+    }),
     startPage() {
       return this.startPoint
     },
     maxPage() {  // 총 페이지 수(and 최대 페이지 번호)
-      return Math.round(this.$store.state.productList.itemCount/this.listSize)
+      return this.listItems.itemCount>this.listSize? Math.round(this.listItems.itemCount/this.listSize) : 1
     },
     endPage() {
       let end = this.startPage + this.pageCount -1
