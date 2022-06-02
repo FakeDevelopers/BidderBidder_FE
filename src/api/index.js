@@ -15,8 +15,6 @@ async function fetchList(listNum, pageNum) {
 
 async function submitAccount(email, passwd) {
 
-    console.log(email, passwd)
-
     const url = '/user/login'
     const form = new FormData()
 

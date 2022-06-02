@@ -35,6 +35,8 @@ export default {
       'callback': (response) => {
         // reCAPTCHA solved, allow signInWithPhoneNumber.
         // ...
+        console.log(response)
+
       },
       'expired-callback': () => {
         // Response expired. Ask user to solve reCAPTCHA again.
@@ -53,16 +55,19 @@ export default {
             window.confirmationResult = confirmationResult;
             // ...
           }).catch((error) => {
+        console.log(error)
       });
     },
     checkCode() {
       window.confirmationResult.confirm(this.certificationCode).then((result) => {
         // User signed in successfully.
         const user = result.user;
+        console.log(user)
         // ...
       }).catch((error) => {
         // User couldn't sign in (bad verification code?)
         // ...
+        console.log(error)
       });
     }
   }
