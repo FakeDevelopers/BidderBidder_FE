@@ -2,9 +2,9 @@
   <div>
     <ul class="ListContainer">
       <li v-for="product in listItems.items" v-bind:key="product.title" class="listDesign">
-          <img :src="product.thumbnail" class="image-container" alt="상품 사진">
+          <img :src="`${this.apiAddress}${product.thumbnail}`" class="image-container" alt="상품 사진">
          <section>
-           {{$t('productName')}}: {{product.boardTitle}}
+           {{$t('productName')}}: {{product.productTitle}}
          </section>
         <section>
           {{$t('openingBid')}}: {{comma(product.openingBid)}}
@@ -76,6 +76,7 @@
 <script>
 import TimerScreen from "@/components/TimerScreen";
 import {mapGetters} from "vuex";
+import {config} from "@/api";
 
 export default {
   name: "ProductView.vue",
@@ -85,6 +86,7 @@ export default {
       pageCount: 10,
       currentPage: 1,
       startPoint:1,
+      apiAddress: config.baseUrl
     }
   },
   components:{

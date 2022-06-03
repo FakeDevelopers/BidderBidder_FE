@@ -1,8 +1,8 @@
 module.exports = {
   //outputDir : npm run build 빌드 시에 파일이 생성되는 위치
-  outputDir: "../src/main/resources/static",
+  outputDir: "./backend/public",
   //indexPath : index.html 파일이 생성될 위치
-  indexPath: "../static/index.html",
+  indexPath: "./index.html",
   //SpringBoot 서버 접속 주소
   devServer: {
     proxy: "http://3.38.81.213:8080"
