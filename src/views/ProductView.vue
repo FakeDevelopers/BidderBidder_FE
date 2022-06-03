@@ -129,7 +129,7 @@ export default {
     },
     startPointChange(location) {
       if (location === 'left'){
-        if(this.startPoint<=1){
+        if(this.startPoint<=this.pageCount){
           this.startPoint = 1
         }else{
           this.startPoint-=this.pageCount
@@ -137,12 +137,12 @@ export default {
         }
       }
       else if(location === 'right'){
-        if(this.startPoint>=this.maxPage){
+        if(this.startPoint+this.pageCount>=this.maxPage){
           this.startPoint = this.maxPage
         }else{
           this.startPoint+=this.pageCount
-        this.getPage(this.startPoint)
         }
+        this.getPage(this.startPoint)
       }
       else if(location === 'start'){
         this.startPoint=1
