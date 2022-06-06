@@ -1,7 +1,7 @@
 <template>
   <div>
     <section>
-      {{$t('remainedTime')}}: {{ millisToDate(countdown) }}
+      {{ $t('remainedTime') }}: {{ millisToDate(countdown) }}
     </section>
   </div>
 </template>

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const config={
+const config = {
     baseUrl: 'http://3.38.81.213:8080'
 }
 
@@ -61,4 +61,4 @@ async function submitWrite(category, imageList, hopePrice, openingBid, tick) {
     }
 }
 
-export {fetchList, submitAccount, submitWrite,config}
+export {fetchList, submitAccount, submitWrite, config}

@@ -1,16 +1,16 @@
 <template>
   <div>
     <nav class="header">
-      <router-link to="/products"> {{$t('productList')}}</router-link>
-      <button @click="modalOpen(true)" class="LoginBtn">{{$t('login')}}</button>
+      <router-link to="/products"> {{ $t('productList') }}</router-link>
+      <button @click="modalOpen(true)" class="LoginBtn">{{ $t('login') }}</button>
       <select v-model="$i18n.locale">
         <option v-for="locale in $i18n.availableLocales" :key="`locale-${locale}`" :value="locale">
-          {{locale}}
+          {{ locale }}
         </option>
       </select>
       <modal v-if="this.showModal">
         <template v-slot:header>
-          <h3>{{$t('login')}}</h3>
+          <h3>{{ $t('login') }}</h3>
         </template>
         <template v-slot:body>
           <form v-on:submit.prevent="submitForm">
@@ -24,7 +24,7 @@
               <input id="password" type="password" v-model="passwd">
             </div>
             <br><br>
-            <button type="submit">{{$t('login')}}</button>
+            <button type="submit">{{ $t('login') }}</button>
           </form>
         </template>
         <template v-slot:footer>
