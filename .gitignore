@@ -23,3 +23,8 @@ pnpm-debug.log*
 *.sw?
 #firebase
 /src/firebase.js
+
+##buildfile
+/backend/backend-macos
+/backend/backend-linux
+/backend/backend-win.exe
