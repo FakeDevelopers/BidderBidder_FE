@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const config = {
-    baseUrl: 'http://3.38.81.213:8080'
+    baseUrl: 'http://bidderbidder.kro.kr:8080'
 }
 
 async function fetchList(listNum, pageNum) {
