@@ -129,7 +129,7 @@ export default {
     },
     startPointChange(location) {
       if (location === 'left') {
-        this.startPoint = this.startPoint <= this.pageCount ? 1 : this.startPoint -= this.pageCount
+        this.startPoint = this.startPoint <= this.pageCount ? 1 : this.startPoint - this.pageCount
         this.getPage(this.startPoint)
       } else if (location === 'right') {
         this.startPoint = Math.min(this.startPoint + this.pageCount, this.maxPage)
