@@ -21,8 +21,12 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
-#firebase
+# firebase
 /src/firebase.js
 
-##buildfile
+# buildfile
 /backend/
+
+# api
+/src/api/baseUrl.js
+

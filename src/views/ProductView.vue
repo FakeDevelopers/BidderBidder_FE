@@ -76,7 +76,7 @@
 <script>
 import TimerScreen from "@/components/TimerScreen";
 import {mapGetters} from "vuex";
-import {config} from "@/api";
+import {config} from "@/api/baseUrl";
 
 export default {
   name: "ProductView.vue",

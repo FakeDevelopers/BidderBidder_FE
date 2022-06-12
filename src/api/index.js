@@ -1,8 +1,5 @@
 import axios from 'axios'
-
-const config = {
-    baseUrl: 'http://bidderbidderapi.kro.kr:8080'
-}
+import {config} from './baseUrl'
 
 async function fetchList(listNum, pageNum) {
     try {
@@ -61,4 +58,4 @@ async function submitWrite(category, imageList, hopePrice, openingBid, tick) {
     }
 }
 
-export {fetchList, submitAccount, submitWrite, config}
+export {fetchList, submitAccount, submitWrite}
