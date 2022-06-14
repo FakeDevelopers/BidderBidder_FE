@@ -1,8 +1,9 @@
 import axios from 'axios'
+import {config} from './baseUrl'
 
 async function fetchList(listNum, pageNum) {
     try {
-        return await axios.get('/board/getPageProductList', {
+        return await axios.get(`${config.baseUrl}/product/getPageProductList`, {
             params: {
                 listCount: listNum,
                 page: pageNum
@@ -15,7 +16,7 @@ async function fetchList(listNum, pageNum) {
 
 async function submitAccount(email, passwd) {
 
-    const url = '/user/login'
+    const url = `${config.baseUrl}/user/login`
     const form = new FormData()
 
     form.append('email', email)
@@ -31,7 +32,7 @@ async function submitAccount(email, passwd) {
 
 async function submitWrite(category, imageList, hopePrice, openingBid, tick) {
 
-    const url = '/board/write'
+    const url = `${config.baseUrl}/product/write`
     const form = new FormData()
 
     form.append('board_content', '경매')
