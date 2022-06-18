@@ -26,7 +26,7 @@
       <ul class="pagination-frame">
         <li @click="startPointChange(
             'start'
-        )">
+        ),$router.push(/products/ + this.currentPage)">
           <a class="page-text">
             〈〈
           </a>
@@ -35,7 +35,7 @@
             class="page-left-btn"
             @click="startPointChange(
                 'left'
-            )"
+            ),$router.push(/products/ + this.currentPage)"
         >
           <a class="page-text">
             〈
@@ -55,7 +55,7 @@
             class="page-right-btn"
             @click="startPointChange(
                 'right'
-            )"
+            ),$router.push(/products/ + this.currentPage)"
         >
           <a class="page-text">
             〉
@@ -63,7 +63,7 @@
         </li>
         <li @click="startPointChange(
             'end'
-        )">
+        ),$router.push(/products/ + this.currentPage)">
           <a class="page-text">
             〉〉
           </a>
