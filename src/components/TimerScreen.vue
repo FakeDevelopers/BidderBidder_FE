@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex";
 
 export default {
   name: "TimerScreen.vue",
@@ -31,15 +30,6 @@ export default {
     this.setupCountdownTimer()
   },
   watch: {
-    pageCheck() {
-      if (this.pageCheck) {
-        this.$store.state.pageMove = false
-        if (this.countdown < 0) {
-          this.countdown = this.expirationTime - new Date().getTime()
-          this.setupCountdownTimer()
-        }
-      }
-    },
     countdown() {
       this.dayBool = this.dayCheck()
       this.otherHourBool = this.otherHourCheck()
@@ -49,12 +39,9 @@ export default {
     },
     expirationDay(newVal) {
       this.expirationTime = new Date(newVal).getTime()
+      this.countdown = this.expirationTime - new Date().getTime()
+      this.setupCountdownTimer()
     }
-  },
-  computed: {
-    ...mapGetters({
-      pageCheck: 'getPageMove'
-    })
   },
   methods: {
     setupCountdownTimer() { // 타이머

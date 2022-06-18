@@ -7,7 +7,7 @@ const routes = [
         redirect: '/products'
     },
     {
-        path: '/products',
+        path: '/products/:page?',
         name: 'products',
         component: ProductView
     }

@@ -45,7 +45,7 @@
             v-for="n in paginationUnits"
             :key="n"
             :class="[n === currentPage? 'selected-page' : '', 'page-btn']"
-            @click="changeCurrentPage(n)"
+            @click="changeCurrentPage(n),$router.push(/products/+ n)"
         >
           <a class="page-text">
             {{ n }}
