@@ -49,7 +49,7 @@
       </div>
       <div class="nav-border"></div>
       <div class="search">
-        <div class="logo">
+        <a href="/" class="logo">
           <svg width="173" height="53" viewBox="0 0 173 53" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_15_252)">
               <path d="M3.74377 3.74365V48.8177H16.2061V3.74365" stroke="#38BBF3" stroke-width="7.48738" stroke-linecap="round" stroke-linejoin="round"/>
@@ -71,7 +71,7 @@
               </clipPath>
             </defs>
           </svg>
-        </div>
+        </a>
         <div class="search-box">
           <input type="text" placeholder="상품명, 판매자명 등을 입력하세요" class="search-input">
           <div class="search-icon">
@@ -82,12 +82,14 @@
         </div>
         <div class="trending">
           <ul>
-            <li>
-              <span class="rank">
+            <li class="trending-item">
+              <a href="">
+                <span class="rank">
                 <span class="rank-num">1</span>
               </span>
-              <span class="keyword">스마트폰</span>
-              <span class="fluctuate-value fluctuate-none">-</span>
+                <span class="keyword">스마트폰</span>
+                <span class="fluctuate-value fluctuate-none">-</span>
+              </a>
             </li>
           </ul>
         </div>
@@ -244,6 +246,10 @@ export default {
   padding-top: 51px;
   padding-bottom: 31px;
 
+  logo {
+    cursor: pointer;
+  }
+
   &-box {
     display: flex;
     align-items: center;
@@ -268,7 +274,8 @@ export default {
   }
 
   &-icon {
-    padding-right: 19px;
+    margin-right: 19px;
+    cursor: pointer;
   }
 
   .trending {
@@ -276,6 +283,11 @@ export default {
 
     li {
       display: flex;
+    }
+
+    a {
+      display: flex;
+      text-decoration: none;
     }
 
     .ul, .li {
@@ -290,6 +302,7 @@ export default {
       background-color: #38BBF3;
       border-radius: 5px;
       color: #ffffff;
+      cursor: pointer;
 
       &-num {
         font-weight: 800;
