@@ -9,6 +9,11 @@ export default createStore({
     mutations: {
         setShowModal(state, value) {
             this.state.showModal = value
+            if (value) {
+                document.body.style.overflowY = "hidden"
+            } else {
+                document.body.style.overflowY = "auto"
+            }
         },
         SET_LIST(state, list) {
             state.productList = list
