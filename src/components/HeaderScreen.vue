@@ -1,9 +1,6 @@
 <template>
   <div>
-
-
     <div class="header">
-
       <div class="top-nav">
         <div class="app-cta">
           <span class="app-icon">
@@ -43,16 +40,104 @@
           </span>
         </div>
         <div class="nav-menu">
+          <span class="button" @click="modalOpen(true)">로그인</span>
+          <a href="" class="button button__link__primary">회원가입</a>
+          <a href="" class="button">이벤트</a>
+          <a href="" class="button">기획전</a>
+          <a href="" class="button">고객센터</a>
         </div>
       </div>
+      <div class="nav-border"></div>
+      <div class="search">
+        <div class="logo">
+          <svg width="173" height="53" viewBox="0 0 173 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_15_252)">
+              <path d="M3.74377 3.74365V48.8177H16.2061V3.74365" stroke="#38BBF3" stroke-width="7.48738" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M32.071 3.74365V48.8177" stroke="#38BBF3" stroke-width="7.48738" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M62.0954 3.74365H49.9658V48.8177L65.6186 45.5856" stroke="#38BBF3" stroke-width="7.48738" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M68.2682 25.2949L78.0018 26.364" stroke="#38BBF3" stroke-width="7.48738" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5.10803 26.3639L14.8416 27.4288" stroke="#38BBF3" stroke-width="7.48738" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M96.3667 25.2949L106.096 26.364" stroke="#38BBF3" stroke-width="7.48738" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M78.002 3.74365V48.8177" stroke="#38BBF3" stroke-width="7.48738" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M95.0023 3.74365V48.8177H107.465V3.74365" stroke="#38BBF3" stroke-width="7.48738" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M123.33 3.74365V48.8177" stroke="#38BBF3" stroke-width="7.48738" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M153.354 3.74365H141.224V48.8177L156.877 45.5856" stroke="#38BBF3" stroke-width="7.48738" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M159.527 25.2949L169.256 26.364" stroke="#38BBF3" stroke-width="7.48738" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M169.256 3.74365V48.8177" stroke="#38BBF3" stroke-width="7.48738" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+            <defs>
+              <clipPath id="clip0_15_252">
+                <rect width="173" height="52.5614" fill="white"/>
+              </clipPath>
+            </defs>
+          </svg>
+        </div>
+        <div class="search-box">
+          <input type="text" placeholder="상품명, 판매자명 등을 입력하세요" class="search-input">
+          <div class="search-icon">
+            <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7.91668 1.58337C6.92596 1.5839 5.94919 1.81685 5.06486 2.26349C4.18053 2.71012 3.41332 3.358 2.82488 4.15503C2.23644 4.95207 1.8432 5.87603 1.67675 6.85267C1.51031 7.8293 1.5753 8.83137 1.86651 9.77832C2.15772 10.7253 2.66703 11.5907 3.35349 12.305C4.03995 13.0194 4.88443 13.5627 5.81904 13.8914C6.75366 14.22 7.75234 14.3249 8.73483 14.1974C9.71731 14.07 10.6562 13.7138 11.476 13.1575L15.39 17.0684C15.4987 17.185 15.6298 17.2786 15.7755 17.3435C15.9212 17.4084 16.0784 17.4433 16.2379 17.4461C16.3973 17.449 16.5557 17.4196 16.7035 17.3599C16.8514 17.3002 16.9857 17.2113 17.0985 17.0985C17.2113 16.9858 17.3001 16.8514 17.3599 16.7036C17.4196 16.5557 17.4489 16.3973 17.4461 16.2379C17.4433 16.0784 17.4084 15.9212 17.3435 15.7755C17.2786 15.6299 17.185 15.4988 17.0683 15.39L13.1575 11.476C13.8045 10.5238 14.1797 9.4132 14.2428 8.26367C14.3059 7.11415 14.0544 5.96917 13.5155 4.95185C12.9765 3.93454 12.1705 3.08337 11.184 2.48986C10.1975 1.89635 9.06794 1.58296 7.91668 1.58337V1.58337ZM3.95835 7.91671C3.95835 6.86689 4.37538 5.86008 5.11772 5.11774C5.86005 4.37541 6.86686 3.95837 7.91668 3.95837C8.96649 3.95837 9.97331 4.37541 10.7156 5.11774C11.458 5.86008 11.875 6.86689 11.875 7.91671C11.875 8.96652 11.458 9.97334 10.7156 10.7157C9.97331 11.458 8.96649 11.875 7.91668 11.875C6.86686 11.875 5.86005 11.458 5.11772 10.7157C4.37538 9.97334 3.95835 8.96652 3.95835 7.91671Z" fill="#38BBF3"/>
+            </svg>
+          </div>
+        </div>
+        <div class="trending">
+          <ul>
+            <li>
+              <span class="rank">
+                <span class="rank-num">1</span>
+              </span>
+              <span class="keyword">스마트폰</span>
+              <span class="fluctuate-value fluctuate-none">-</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <div class="left-menu">
+          <a href="" class="category-expand button button__icon-text button__link">
+          <span class="icon">
+            <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line y1="1.77273" x2="18" y2="1.77273" stroke="#030303" stroke-width="2.45455"/>
+              <line y1="8.31814" x2="18" y2="8.31814" stroke="#030303" stroke-width="2.45455"/>
+              <line y1="14.8637" x2="18" y2="14.8637" stroke="#030303" stroke-width="2.45455"/>
+            </svg>
 
-      <router-link to="/products"> {{ $t('productList') }}</router-link>
-      <button @click="modalOpen(true)" class="LoginBtn">{{ $t('login') }}</button>
-      <select v-model="$i18n.locale">
-        <option v-for="locale in $i18n.availableLocales" :key="`locale-${locale}`" :value="locale">
-          {{ locale }}
-        </option>
-      </select>
+          </span>
+            <span class="text">카테고리</span>
+          </a>
+        </div>
+        <div class="right-menu">
+          <a href="" class="upload button button__icon-text button__link__primary">
+          <span class="icon">
+            <svg width="26" height="27" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.4923 8.06466H20.7491C20.9461 8.06486 21.136 8.13816 21.282 8.27037C21.428 8.40257 21.5197 8.58427 21.5394 8.78026L22.0245 13.6304H20.4247L20.0271 9.65488H17.4923V12.0402C17.4923 12.2511 17.4086 12.4533 17.2595 12.6024C17.1103 12.7515 16.9081 12.8353 16.6972 12.8353C16.4864 12.8353 16.2841 12.7515 16.135 12.6024C15.9859 12.4533 15.9021 12.2511 15.9021 12.0402V9.65488H9.54125V12.0402C9.54125 12.2511 9.45748 12.4533 9.30837 12.6024C9.15926 12.7515 8.95702 12.8353 8.74614 12.8353C8.53527 12.8353 8.33303 12.7515 8.18392 12.6024C8.0348 12.4533 7.95103 12.2511 7.95103 12.0402V9.65488H5.41464L4.14246 22.3766H12.7217V23.9668H3.26307C3.15202 23.9667 3.04222 23.9434 2.94075 23.8982C2.83928 23.8531 2.74838 23.7872 2.67393 23.7048C2.59947 23.6224 2.5431 23.5253 2.50845 23.4198C2.4738 23.3143 2.46163 23.2027 2.47274 23.0922L3.90393 8.78026C3.92363 8.58427 4.01537 8.40257 4.16139 8.27037C4.3074 8.13816 4.49729 8.06486 4.69427 8.06466H7.95103V7.50968C7.95103 4.75224 10.0756 2.4989 12.7217 2.4989C15.3678 2.4989 17.4923 4.75224 17.4923 7.50968V8.06625V8.06466ZM15.9021 8.06466V7.50968C15.9021 5.61096 14.4677 4.08912 12.7217 4.08912C10.9756 4.08912 9.54125 5.61096 9.54125 7.50968V8.06625H15.9021V8.06466ZM20.9065 20.0867L19.0826 18.2643V23.9668C19.0826 24.1777 18.9988 24.38 18.8497 24.5291C18.7006 24.6782 18.4983 24.7619 18.2874 24.7619C18.0766 24.7619 17.8743 24.6782 17.7252 24.5291C17.5761 24.38 17.4923 24.1777 17.4923 23.9668V18.2643L15.6699 20.0867C15.5966 20.1626 15.5089 20.2232 15.4119 20.2649C15.3149 20.3066 15.2105 20.3285 15.1049 20.3294C14.9994 20.3303 14.8947 20.3102 14.797 20.2702C14.6992 20.2303 14.6105 20.1712 14.5358 20.0966C14.4612 20.0219 14.4021 19.9331 14.3621 19.8354C14.3222 19.7377 14.302 19.633 14.303 19.5274C14.3039 19.4219 14.3258 19.3175 14.3675 19.2205C14.4092 19.1235 14.4697 19.0358 14.5457 18.9624L17.7261 15.782C17.8752 15.6329 18.0774 15.5492 18.2882 15.5492C18.4991 15.5492 18.7013 15.6329 18.8504 15.782L22.0308 18.9624C22.1068 19.0358 22.1673 19.1235 22.209 19.2205C22.2507 19.3175 22.2726 19.4219 22.2735 19.5274C22.2744 19.633 22.2543 19.7377 22.2143 19.8354C22.1744 19.9331 22.1153 20.0219 22.0407 20.0966C21.966 20.1712 21.8772 20.2303 21.7795 20.2702C21.6818 20.3102 21.5771 20.3303 21.4715 20.3294C21.366 20.3285 21.2616 20.3066 21.1646 20.2649C21.0676 20.2232 20.9799 20.1626 20.9065 20.0867Z" fill="#38BBF3" stroke="#38BBF3" stroke-width="0.227583"/>
+            </svg>
+          </span>
+            <span class="text">경매 등록하기</span>
+          </a>
+          <span class="divider">|</span>
+          <a href="" class="favorite button button__icon-text button__link">
+          <span class="icon">
+            <svg width="26" height="27" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21.3116 7.53467V12.8163C20.7803 12.7569 20.2427 12.7873 19.7214 12.9064V7.53467C19.7214 7.32379 19.6376 7.12155 19.4885 6.97244C19.3394 6.82333 19.1372 6.73956 18.9263 6.73956H16.6693C16.241 7.37883 15.5126 7.79971 14.6857 7.79971H10.9752C10.1483 7.79971 9.41998 7.37883 8.99168 6.73956H6.73463C6.52375 6.73956 6.32152 6.82333 6.1724 6.97244C6.02329 7.12155 5.93952 7.32379 5.93952 7.53467V21.8466C5.93952 22.2855 6.29573 22.6417 6.73463 22.6417H13.933L15.5232 24.232H6.73463C6.102 24.232 5.49529 23.9806 5.04795 23.5333C4.60061 23.086 4.3493 22.4793 4.3493 21.8466V7.53467C4.3493 6.90204 4.60061 6.29532 5.04795 5.84799C5.49529 5.40065 6.102 5.14934 6.73463 5.14934H8.60473C8.66992 4.56625 8.94773 4.02764 9.38504 3.63649C9.82235 3.24533 10.3885 3.02907 10.9752 3.02905H14.6857C15.2724 3.02907 15.8386 3.24533 16.2759 3.63649C16.7132 4.02764 16.991 4.56625 17.0562 5.14934H18.9263C19.2395 5.14934 19.5497 5.21104 19.8391 5.33091C20.1285 5.45079 20.3915 5.62649 20.613 5.84799C20.8345 6.06949 21.0102 6.33244 21.1301 6.62184C21.2499 6.91125 21.3116 7.22142 21.3116 7.53467ZM17.0657 5.25112L17.071 5.41438C17.071 5.35925 17.0689 5.30518 17.0657 5.25112ZM10.9752 4.61927C10.7643 4.61927 10.5621 4.70304 10.413 4.85215C10.2639 5.00126 10.1801 5.2035 10.1801 5.41438C10.1801 5.62525 10.2639 5.82749 10.413 5.97661C10.5621 6.12572 10.7643 6.20949 10.9752 6.20949H14.6857C14.8966 6.20949 15.0988 6.12572 15.2479 5.97661C15.3971 5.82749 15.4808 5.62525 15.4808 5.41438C15.4808 5.2035 15.3971 5.00126 15.2479 4.85215C15.0988 4.70304 14.8966 4.61927 14.6857 4.61927H10.9752Z" fill="#030303"/>
+              <path d="M18.1322 24.2495L18.1303 24.2477L13.4572 19.5745L13.4573 19.5745L13.4487 19.5662C13.1723 19.2982 12.9519 18.9779 12.8005 18.6239C12.649 18.27 12.5695 17.8894 12.5665 17.5044C12.5635 17.1195 12.6371 16.7377 12.783 16.3815C12.929 16.0252 13.1443 15.7015 13.4165 15.4292C13.5161 15.3296 13.7438 15.171 14.0043 15.0122C14.1235 14.9396 14.2334 14.8764 14.3136 14.8314C14.3349 14.8195 14.3539 14.8089 14.3703 14.7999C14.3884 14.7948 14.4094 14.789 14.4329 14.7825C14.5216 14.7583 14.6442 14.7261 14.7801 14.6943C15.0771 14.6246 15.3507 14.5777 15.4915 14.5788C15.8765 14.5817 16.2571 14.6612 16.6111 14.8126C16.965 14.9639 17.2854 15.1842 17.5534 15.4606L17.5534 15.4606L17.5617 15.469L17.5999 15.5071L18.146 16.0533L18.6922 15.5071L18.7304 15.469L18.7304 15.469L18.7334 15.4659C19.0025 15.1938 19.3226 14.9776 19.6755 14.8297C20.0284 14.6817 20.407 14.605 20.7896 14.6039C21.1723 14.6029 21.5513 14.6774 21.905 14.8234L22.1979 14.1135L21.905 14.8234C22.2587 14.9693 22.5801 15.1837 22.8507 15.4542C23.1212 15.7248 23.3356 16.0462 23.4816 16.3999C23.6275 16.7536 23.702 17.1327 23.701 17.5153C23.6999 17.8979 23.6232 18.2765 23.4752 18.6294C23.3273 18.9823 23.1111 19.3024 22.839 19.5715L22.839 19.5715L22.836 19.5745L18.1618 24.2476L18.1599 24.2495C18.1581 24.2514 18.1559 24.2528 18.1535 24.2538L18.1535 24.2538C18.1512 24.2548 18.1486 24.2553 18.146 24.2553C18.1435 24.2553 18.1409 24.2548 18.1385 24.2538L17.8417 24.9669L18.1385 24.2538C18.1361 24.2528 18.134 24.2514 18.1322 24.2495Z" stroke="#FF3303" stroke-width="1.54478"/>
+            </svg>
+          </span>
+            <span class="text">찜 목록</span>
+          </a>
+          <span class="divider">|</span>
+          <a href="" class="mypage button button__icon-text button__link">
+          <span class="icon">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.4256 9.54124C17.4256 10.6539 16.9836 11.7209 16.1969 12.5077C15.4101 13.2944 14.3431 13.7364 13.2304 13.7364C12.1178 13.7364 11.0508 13.2944 10.264 12.5077C9.47729 11.7209 9.0353 10.6539 9.0353 9.54124C9.0353 8.42862 9.47729 7.36157 10.264 6.57482C11.0508 5.78808 12.1178 5.34609 13.2304 5.34609C14.3431 5.34609 15.4101 5.78808 16.1969 6.57482C16.9836 7.36157 17.4256 8.42862 17.4256 9.54124ZM14.7618 11.0726C15.168 10.6665 15.3962 10.1156 15.3962 9.54124C15.3962 8.96685 15.168 8.41599 14.7618 8.00984C14.3557 7.60369 13.8048 7.37551 13.2304 7.37551C12.6561 7.37551 12.1052 7.60369 11.699 8.00984C11.2929 8.41599 11.0647 8.96685 11.0647 9.54124C11.0647 10.1156 11.2929 10.6665 11.699 11.0726C12.1052 11.4788 12.6561 11.707 13.2304 11.707C13.8048 11.707 14.3557 11.4788 14.7618 11.0726Z" fill="#030303" stroke="white" stroke-width="0.0908696"/>
+              <path d="M13.2994 16.9168C12.0981 16.9159 10.9144 17.2053 9.849 17.7602C8.78358 18.3151 7.86796 19.1191 7.18005 20.1039L7.15588 20.1385L7.18862 20.1652C8.89536 21.5546 11.0297 22.3117 13.2304 22.3084C15.4701 22.3115 17.6396 21.5273 19.3596 20.0927L19.392 20.0657L19.3675 20.0314C18.6767 19.067 17.7657 18.2813 16.7104 17.7396C15.655 17.1979 14.4856 16.9159 13.2994 16.9168ZM13.2994 16.9168L13.2994 16.9622L13.2993 16.9168C13.2993 16.9168 13.2994 16.9168 13.2994 16.9168ZM5.6761 18.625L5.71237 18.6713L5.74804 18.6245C6.6335 17.4617 7.77582 16.5193 9.08574 15.871C10.3957 15.2228 11.8377 14.8861 13.2993 14.8874H13.2994C14.742 14.886 16.166 15.214 17.4627 15.8462C18.7594 16.4785 19.8947 17.3984 20.7821 18.5359L20.8183 18.5823L20.854 18.5355C21.777 17.325 22.3984 15.9121 22.6669 14.4138C22.9354 12.9155 22.8432 11.3747 22.398 9.91911C21.9528 8.46347 21.1674 7.13476 20.1068 6.04292C19.0461 4.95109 17.7407 4.12752 16.2986 3.64035C14.8565 3.15318 13.3191 3.01643 11.8136 3.2414C10.3081 3.46637 8.87784 4.0466 7.64113 4.93408C6.40441 5.82155 5.39681 6.99077 4.70168 8.34498C4.00656 9.69918 3.6439 11.1995 3.6437 12.7216C3.6437 14.9479 4.40321 16.9974 5.6761 18.625ZM1.61428 12.7217C1.61428 6.30637 6.81515 1.10549 13.2304 1.10549C19.6457 1.10549 24.8466 6.30637 24.8466 12.7217C24.8466 19.1369 19.6457 24.3378 13.2304 24.3378C6.81515 24.3378 1.61428 19.1369 1.61428 12.7217Z" fill="#030303" stroke="white" stroke-width="0.0908696"/>
+            </svg>
+          </span>
+            <span class="text">마이페이지</span>
+          </a>
+        </div>
+      </div>
+      <div class="nav-border"></div>
       <modal v-if="this.showModal"></modal>
     </div>
   </div>
@@ -86,19 +171,233 @@ export default {
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "src/css/variables";
+* {
+  box-sizing: border-box;
+  font-family: Pretendard;
+  font-weight: 600;
+}
+// Header
 .header {
   display: flex;
-  font-size: 15px;
-  box-shadow: 0 5px 5px -5px rgb(0 0 0 / 20%);
+  width: 100%;
+  font-size: 14px;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.nav-border {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(to bottom, transparent 50%, #BDBDBD 50%);
 }
 
-.LoginBtn {
-  margin-left: auto;
-  margin-right: 16px;
-  width: 80px;
-  height: 30px;
+
+// TOP-NAV
+.top-nav {
+  width: 100%;
+  max-width: 1194px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .app {
+    &-cta {
+      display: flex;
+      height: 24px;
+      align-items: center;
+      padding-top: 10px;
+      padding-bottom: 11px;
+    }
+
+    &-text {
+      padding-left: 12px;
+      font-size: 16px;
+      color: #888888;
+    }
+  }
+
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 8px;
+
+    & > * {
+      padding-left: 22px;
+    }
+
+    & > .button {
+      font-weight: 500;
+    }
+  }
 }
 
+// SEARCH
+.search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 51px;
+  padding-bottom: 31px;
+
+  &-box {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 582px;
+    height: 50px;
+    border: 3px solid #38BBF3;
+    margin-left: 75px;
+  }
+  &-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    padding: 12px 19px;
+    border: 0;
+    outline: 0;
+
+    &::placeholder {
+      color: #707070;
+    }
+  }
+
+  &-icon {
+    padding-right: 19px;
+  }
+
+  .trending {
+    padding-left: 84px;
+
+    li {
+      display: flex;
+    }
+
+    .ul, .li {
+      list-style: none;
+    }
+    .rank {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 15px;
+      height: 15px;
+      background-color: #38BBF3;
+      border-radius: 5px;
+      color: #ffffff;
+
+      &-num {
+        font-weight: 800;
+        position: relative;
+        top: 4px;
+        left: 1.5px;
+      }
+    }
+    .keyword {
+      display: flex;
+      width: 115px;
+      font-size: 12px;
+      color: #030303;
+      padding-left: 10px;
+      text-align: center;
+      justify-content: center;
+    }
+    .fluctuate {
+      &-value {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+// BOTTOM-NAV
+.bottom-nav {
+  width: 100%;
+  max-width: 1194px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .right-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .divider {
+      color: #BDBDBD;
+      font-size: 25px;
+      font-weight: 400;
+      padding: 0 12px;
+    }
+  }
+
+  .button__icon-text {
+    flex-grow: 0;
+    width: auto;
+    padding: 0;
+
+    .text {
+      padding-left: 12px;
+      font-size: 20px;
+    }
+
+    .icon {
+      width: 25px;
+      height: 25px;
+    }
+  }
+
+  a.category-expand {
+    .icon {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+// Button
+.button {
+  display: inline-flex;
+  text-decoration: none;
+  color: #030303;
+
+  // Button Type
+  &__default {
+    border: 1px solid #BDBDBD;
+  }
+  &__icon-text {
+    border: 1px solid #BDBDBD;
+    justify-content: start;
+    align-items: center;
+    vertical-align: center;
+    border-radius: 7.5px;
+    font-size: 14px;
+    flex-grow: 1;
+    padding: 18px 22px;
+    height: 54px;
+
+    .icon {
+      width: 32px;
+      height: 32px;
+      background-repeat: no-repeat;
+      background-position: center;
+      justify-content: start;
+      flex-shrink: 1;
+    }
+    .text {
+      flex-grow: 1;
+    }
+  }
+
+  &__link {
+    border: 0;
+    &__primary {
+      color: #21CEFF;
+      border: 0;
+    }
+  }
+}
 </style>
