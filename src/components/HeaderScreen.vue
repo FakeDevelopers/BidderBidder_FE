@@ -209,10 +209,11 @@ export default {
       align-items: center;
       padding-top: 10px;
       padding-bottom: 11px;
+      cursor: pointer;
     }
 
     &-text {
-      padding-left: 12px;
+      margin-left: 12px;
       font-size: 16px;
       color: #888888;
     }
@@ -225,7 +226,8 @@ export default {
     padding-bottom: 8px;
 
     & > * {
-      padding-left: 22px;
+      margin-left: 22px;
+      cursor: pointer;
     }
 
     & > .button {
