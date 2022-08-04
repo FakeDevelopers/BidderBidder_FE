@@ -483,7 +483,7 @@ body {
 .button {
   display: inline-flex;
   text-decoration: none;
-
+  cursor: pointer;
 
   // Button Type
   &__default {
