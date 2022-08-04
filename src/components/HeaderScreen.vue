@@ -16,7 +16,7 @@
 <script>
 import Modal from './common/AlertModal.vue'
 import {mapGetters, mapMutations} from 'vuex'
-
+import {firebaseGoogleAuthResult} from "@/firebase"
 
 export default {
   name: "login",
@@ -33,6 +33,9 @@ export default {
       showModal: 'getModalState'
     })
   },
+  created() {
+    firebaseGoogleAuthResult();
+  }
 
 }
 
