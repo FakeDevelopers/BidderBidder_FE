@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="searchEngin">
-      <button @click="searchResult(this.searchText),addKeyword()"> 검색</button>
+      <button @click="searchResult(this.searchText),addKeyword(this.searchText)"> 검색</button>
       <input type="search" placeholder="검색어를 입력하세요" v-model="searchText"
-             @keyup.enter="searchResult(this.searchText),addKeyword(),modalControl(false),searchingControl(false)"
+             @keyup.enter="searchResult(this.searchText),addKeyword(this.searchText),modalControl(false),searchingControl(false)"
              @focus="modalControl(true)" @input="searchingControl(true)" ref="cursor">
     </div>
-    <div class="modal-bg" v-if="showModal">
+    <div class="modal-bg" v-if="showModal" @click="modalControl(false)">
       <div class="white-bg">
         <div class="searchForm" v-if="!getSearchingState">
           <h4>최근검색어</h4>
