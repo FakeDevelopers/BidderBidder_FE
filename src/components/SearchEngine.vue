@@ -4,7 +4,7 @@
       <button @click="searchResult(this.searchText),addKeyword(this.searchText)"> 검색</button>
       <input type="search" placeholder="검색어를 입력하세요" v-model="searchText"
              @keyup.enter="searchResult(this.searchText),addKeyword(this.searchText),modalControl(false),searchingControl(false)"
-             @focus="modalControl(true),searchingControl(false)" @input="searchingControl(true), modalControl(true)" @keyup.delete="modalControl(false)" ref="cursor">
+             @focus="modalControl(true),searchingControl(false)" @input="searchingControl(true), modalControl(true)" ref="cursor">
     </div>
     <div class="modal-bg" v-if="showModal" @click="modalControl(false)">
       <div class="white-bg">
@@ -71,9 +71,6 @@ export default {
   },
   watch: {
     searchText(value) {
-      if(this.searchText.length==1){
-        this.searchingControl(false)
-      }
       const words = /[ㄱ|ㅏ가]/;
       if (words.test(value)) {
         this.autoCheck(true)
