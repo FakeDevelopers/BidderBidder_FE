@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="modalControl(false)">
     <nav class="header">
       <router-link to="/products"> {{ $t('productList') }}</router-link>
       <button @click="modalOpen(true)" class="LoginBtn">{{ $t('login') }}</button>
@@ -25,7 +25,8 @@ export default {
   },
   methods: {
     ...mapMutations({
-      modalOpen: 'setShowModal'
+      modalOpen: 'setShowModal',
+      modalControl: 'setSearchModal'
     }),
   },
   computed: {
