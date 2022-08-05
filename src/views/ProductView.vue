@@ -1,5 +1,6 @@
 <template>
   <div>
+    <SearchEngine></SearchEngine>
     <ul class="ListContainer">
       <li v-for="product in listItems.items" v-bind:key="product.title" class="listDesign">
         <img :src="`${this.apiAddress}${product.thumbnail}`" class="image-container" alt="상품 사진">
@@ -26,7 +27,7 @@
       <ul class="pagination-frame">
         <li @click="startPointChange(
             'start'
-        ),$router.push(/products/ + this.currentPage)">
+        ),$router.push(/products/ + this.getCurrentPage)">
           <a class="page-text">
             〈〈
           </a>
@@ -35,7 +36,7 @@
             class="page-left-btn"
             @click="startPointChange(
                 'left'
-            ),$router.push(/products/ + this.currentPage)"
+            ),$router.push(/products/ + this.getCurrentPage)"
         >
           <a class="page-text">
             〈
@@ -55,7 +56,7 @@
             class="page-right-btn"
             @click="startPointChange(
                 'right'
-            ),$router.push(/products/ + this.currentPage)"
+            ),$router.push(/products/ + this.getCurrentPage)"
         >
           <a class="page-text">
             〉
@@ -63,7 +64,7 @@
         </li>
         <li @click="startPointChange(
             'end'
-        ),$router.push(/products/ + this.currentPage)">
+        ),$router.push(/products/ + this.getCurrentPage)">
           <a class="page-text">
             〉〉
           </a>
@@ -75,35 +76,39 @@
 
 <script>
 import TimerScreen from "@/components/TimerScreen";
-import {mapGetters} from "vuex";
+import SearchEngine from "@/components/SearchEngine";
+import {mapGetters, mapMutations} from "vuex";
 import {config} from "@/api/baseUrl";
 
 export default {
   name: "ProductView.vue",
   data: function () {
     return {
-      listSize: 15,
       pageCount: 10,
-      currentPage: 1,
-      startPoint: 1,
-      apiAddress: config.baseUrl
+      apiAddress: config.baseUrl,
+      searchText: ''
     }
   },
   components: {
-    TimerScreen
+    TimerScreen,
+    SearchEngine
   },
   created() {
-    this.$store.dispatch("FETCH_LIST", {listSize: this.listSize, currentPage: this.currentPage})
+    this.$store.dispatch("FETCH_LIST", {listSize: this.getListSize, currentPage: this.getCurrentPage})
   },
   computed: {
     ...mapGetters({
-      listItems: 'getProductList'
+      listItems: 'getProductList',
+      showModal: 'getSearchModalState',
+      getStartPoint: 'getStartPoint',
+      getCurrentPage: 'getCurrentPage',
+      getListSize: 'getListSize'
     }),
     startPage() {
-      return this.startPoint
+      return this.getStartPoint
     },
     maxPage() {  // 총 페이지 수(and 최대 페이지 번호)
-      return this.listItems.itemCount > this.listSize ? Math.round(this.listItems.itemCount / this.listSize) : 1
+      return this.listItems.itemCount > this.getListSize ? Math.round(this.listItems.itemCount / this.getListSize) : 1
     },
     endPage() {
       let end = this.startPage + this.pageCount - 1
@@ -113,33 +118,30 @@ export default {
     paginationUnits() {
       return Array.from({length: this.endPage - this.startPage + 1}, (_, i) => this.startPage + i)
     }
-
   },
   methods: {
     changeCurrentPage(page) {
-      this.currentPage = page
-      this.$store.dispatch("FETCH_LIST", {listSize: this.listSize, currentPage: this.currentPage})
-      this.$store.state.pageMove = true
+      this.setCurrentPage(page)
+      this.$store.dispatch("FETCH_LIST", {listSize: this.getListSize, currentPage: this.getCurrentPage})
     },
     getPage(startPoint) {
-      this.startPoint = startPoint
-      this.currentPage = startPoint
-      this.$store.dispatch("FETCH_LIST", {listSize: this.listSize, currentPage: this.currentPage})
-      this.$store.state.pageMove = true
+      this.setStartPoint(startPoint)
+      this.setCurrentPage(startPoint)
+      this.$store.dispatch("FETCH_LIST", {listSize: this.getListSize, currentPage: this.getCurrentPage})
     },
     startPointChange(location) {
       if (location === 'left') {
-        this.startPoint = this.startPoint <= this.pageCount ? 1 : this.startPoint - this.pageCount
-        this.getPage(this.startPoint)
+        this.setStartPoint(this.getStartPoint <= this.pageCount ? 1 : this.getStartPoint - this.pageCount)
+        this.getPage(this.getStartPoint)
       } else if (location === 'right') {
-        this.startPoint = Math.min(this.startPoint + this.pageCount, this.maxPage)
-        this.getPage(this.startPoint)
+        this.setStartPoint(Math.min(this.getStartPoint + this.pageCount, this.maxPage))
+        this.getPage(this.getStartPoint)
       } else if (location === 'start') {
-        this.startPoint = 1
-        this.getPage(this.startPoint)
+        this.setStartPoint(1)
+        this.getPage(this.getStartPoint)
       } else if (location === 'end') {
-        this.startPoint = this.maxPage
-        this.getPage(this.startPoint)
+        this.setStartPoint(this.maxPage)
+        this.getPage(this.getStartPoint)
       }
     },
     comma(val) {
@@ -149,14 +151,27 @@ export default {
 
       return val.toLocaleString()
     },
+    ...mapMutations({
+      modalControl: 'setSearchModal',
+      setStartPoint: 'setStartPoint',
+      setCurrentPage: 'setCurrentPage'
+    })
   }
 }
 </script>
 
 <style scoped>
+body {
+  margin: 0
+}
+
+div {
+  box-sizing: border-box;
+}
+
 .ListContainer {
   display: grid;
-  margin-top: 100px;
+  margin-top: 50px;
   grid-template-rows: repeat(5, 300px);
   grid-template-columns: repeat(3, 300px);
   justify-content: center;
@@ -213,6 +228,7 @@ export default {
 
 li:hover:not(.selected-page) {
   background-color: rgba(222, 222, 222, 0.3);
+  cursor: pointer;
 }
 
 li.selected-page {
