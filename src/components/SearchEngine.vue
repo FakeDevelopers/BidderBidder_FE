@@ -16,7 +16,7 @@
                 {{ searchWords }}
               </div>
               <span class="removeBtn" @click="removeWords({searchWords,index})">
-                <i class="fa-solid fa-xmark"></i>
+                <em class="fa-solid fa-xmark"></em>
               </span>
             </li>
             <li @click="clearHistory">

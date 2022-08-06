@@ -30,10 +30,10 @@ export default createStore({
     },
     mutations: {
         setShowModal(state, value) {
-            this.state.showModal = value
+            state.showModal = value
         },
         setSearchModal(state, value) {
-            this.state.searchModal = value
+            state.searchModal = value
         },
         SET_LIST(state, list) {
             state.productList = list
@@ -43,29 +43,29 @@ export default createStore({
             localStorage.removeItem(list.searchWords);
         },
         setSearchingCheck(state, value) {
-            this.state.searchingCheck = value
+            state.searchingCheck = value
         },
         setAutoWordsCheck(state, value) {
-            this.state.autoWordsCheck=value
+            state.autoWordsCheck=value
         },
         clearHistory() {
             this.state.searchHistory = []
             localStorage.clear()
         },
         setListSize(state, value) {
-            this.state.listSize = value
+            state.listSize = value
         },
         setStartPoint(state, value) {
-            this.state.startPoint = value
+            state.startPoint = value
         },
         setCurrentPage(state, value) {
-            this.state.currentPage = value
+            state.currentPage = value
         },
         setResentCheck(state, value) {
-            this.state.resentCheck = value
+            state.resentCheck = value
         },
         setPopularCheck(state, value) {
-            this.state.popularCheck = value
+            state.popularCheck = value
         }
 
     },
