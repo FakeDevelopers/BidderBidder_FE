@@ -41,6 +41,7 @@
         </div>
         <div class="nav-menu">
           <span class="button" @click="modalOpen(true)">로그인</span>
+          <span class="button" @click="signOut()">로그아웃</span>
           <a href="" class="button button__link__primary">회원가입</a>
           <a href="" class="button">이벤트</a>
           <a href="" class="button">기획전</a>
@@ -142,7 +143,7 @@
 import Modal from './common/AlertModal.vue'
 import SearchEngine from "@/components/SearchEngine";
 import {mapGetters, mapMutations} from 'vuex'
-
+import {initFirebaseAuth, firebaseSignOut} from "@/firebase"
 
 export default {
   name: "login",
@@ -155,12 +156,24 @@ export default {
       modalOpen: 'setShowModal',
       modalControl: 'setSearchModal'
     }),
+    signOut() {
+      firebaseSignOut();
+    }
   },
   computed: {
     ...mapGetters({
-      showModal: 'getModalState'
+      showModal: 'getModalState',
     })
   },
+  created() {
+    if (localStorage.getItem("firebaseAuthData") === null) {
+      initFirebaseAuth();
+    } else {
+      console.log("로그인 데이터 확인");
+      const accountData = localStorage.getItem("firebaseAuthData");
+      this.$emit('setAccountData', accountData);
+    }
+  }
 
 }
 

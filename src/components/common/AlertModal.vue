@@ -48,7 +48,7 @@
               <span class="text" v-if="$i18n.locale === 'ko'">{{ $t('naver') + $t('loginWith') }}</span>
               <span class="text" v-if="$i18n.locale === 'en'">{{ $t('loginWith') + $t('naver') }}</span>
             </a>
-            <a href="" class="button button__icon-text button__social social__google">
+            <a @click="googleAuth" class="button button__icon-text button__social social__google">
               <span class="icon"></span>
               <span class="text" v-if="$i18n.locale === 'ko'">{{ $t('google') + $t('loginWith') }}</span>
               <span class="text" v-if="$i18n.locale === 'en'">{{ $t('loginWith') + $t('google') }}</span>
@@ -75,6 +75,7 @@
 <script>
 import {mapMutations} from 'vuex'
 import {submitAccount} from "@/api";
+import {firebaseGoogleAuth} from "@/firebase"
 
 export default {
   methods: {
@@ -84,6 +85,12 @@ export default {
     submitForm: function () {
       submitAccount(this.id, this.passwd)
     },
+    googleAuth () {
+      firebaseGoogleAuth();
+    }
+  },
+  beforeCreate() {
+    console.log("BEFORE")
   },
   data() {
     return {
@@ -479,7 +486,7 @@ body {
 .button {
   display: inline-flex;
   text-decoration: none;
-
+  cursor: pointer;
 
   // Button Type
   &__default {
