@@ -1,6 +1,5 @@
 <template>
   <div>
-    <SearchEngine></SearchEngine>
     <ul class="ListContainer" @click="modalControl(false)">
       <li v-for="product in listItems.items" v-bind:key="product.title" class="listDesign">
         <img :src="`${this.apiAddress}${product.thumbnail}`" class="image-container" alt="상품 사진">
@@ -76,7 +75,6 @@
 
 <script>
 import TimerScreen from "@/components/TimerScreen";
-import SearchEngine from "@/components/SearchEngine";
 import {mapGetters, mapMutations} from "vuex";
 import {config} from "@/api/baseUrl";
 
@@ -90,8 +88,7 @@ export default {
     }
   },
   components: {
-    TimerScreen,
-    SearchEngine
+    TimerScreen
   },
   created() {
     this.$store.dispatch("FETCH_LIST", {listSize: this.getListSize, currentPage: this.getCurrentPage})

@@ -15,7 +15,7 @@
 import {submitWrite} from "@/api";
 
 export default {
-  name: "WriteScreen",
+  name: "PostProductView",
   data() {
     return {
       category: 0,
