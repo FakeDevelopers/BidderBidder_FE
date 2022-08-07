@@ -85,9 +85,12 @@ export default {
     submitForm: function () {
       submitAccount(this.id, this.passwd)
     },
-    googleAuth: function () {
+    googleAuth () {
       firebaseGoogleAuth();
     }
+  },
+  beforeCreate() {
+    console.log("BEFORE")
   },
   data() {
     return {

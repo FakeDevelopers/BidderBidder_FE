@@ -5,6 +5,7 @@ export default createStore({
     state: {
         showModal: false,
         productList: [],
+        accountData: [],
     },
     mutations: {
         setShowModal(state, value) {
@@ -14,6 +15,10 @@ export default createStore({
             } else {
                 document.body.style.overflowY = "auto"
             }
+        },
+        setAccountData(state, value) {
+            console.log("SET_ACCOUNT_DATA");
+            this.state.accountData = value;
         },
         SET_LIST(state, list) {
             state.productList = list
@@ -25,6 +30,9 @@ export default createStore({
         },
         getProductList(state) {
             return state.productList
+        },
+        getAccountData(state) {
+            return state.accountData
         }
     },
     actions: {
