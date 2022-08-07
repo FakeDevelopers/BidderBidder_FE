@@ -31,6 +31,11 @@ export default createStore({
     mutations: {
         setShowModal(state, value) {
             this.state.showModal = value
+            if (value) {
+                document.body.style.overflowY = "hidden"
+            } else {
+                document.body.style.overflowY = "auto"
+            }
         },
         setSearchModal(state, value) {
             this.state.searchModal = value
