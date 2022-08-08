@@ -40,7 +40,7 @@ export default createStore({
             const response = await fetchList(pageInfo.listSize, pageInfo.currentPage)
             commit('SET_LIST', response.data)
             return response
-        }
+        },
     },
     modules: {}
 })

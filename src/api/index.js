@@ -60,4 +60,26 @@ async function submitWrite(category, imageList, hopePrice, openingBid, tick) {
     }
 }
 
-export {fetchList, submitAccount, submitWrite}
+async function requestSocialSignin(provider, token) {
+    console.log("백엔드 소셜 로그인 통신 시작", provider, token);
+    const url = `${config.baseUrl}/user/signin-${provider}`;
+    const auth = `Bearer ${token}`;
+
+    try {
+        console.log("백엔드 요청 : ",auth)
+        const response = await axios
+          .post(url, {
+            headers: {
+                Authorization: auth
+            }
+          })
+          .then((res) => {
+              console.log(res);
+          })
+        console.log(response);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export {fetchList, submitAccount, submitWrite, requestSocialSignin}
