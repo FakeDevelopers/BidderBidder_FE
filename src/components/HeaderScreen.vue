@@ -144,6 +144,7 @@ import Modal from './common/AlertModal.vue'
 import SearchEngine from "@/components/SearchEngine";
 import {mapGetters, mapMutations} from 'vuex'
 import {initFirebaseAuth, firebaseSignOut} from "@/firebase"
+import {requestSocialSignin} from "@/api"
 
 export default {
   name: "login",
@@ -170,8 +171,10 @@ export default {
       initFirebaseAuth();
     } else {
       console.log("로그인 데이터 확인");
-      const accountData = localStorage.getItem("firebaseAuthData");
+      const accountData = JSON.parse(localStorage.getItem("firebaseAuthData"));
       this.$emit('setAccountData', accountData);
+      console.log(accountData[0]);
+      requestSocialSignin("google", accountData[0]);
     }
   }
 

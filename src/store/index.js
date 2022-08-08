@@ -128,7 +128,7 @@ export default createStore({
             const response = await fetchList(pageInfo.listSize, pageInfo.currentPage, pageInfo.searchWord, pageInfo.searchType)
             commit('SET_LIST', response.data)
             return response
-        }
+        },
     },
     modules: {}
 })
