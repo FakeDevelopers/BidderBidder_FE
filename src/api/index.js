@@ -68,9 +68,9 @@ async function requestSocialSignin(provider, token) {
     try {
         console.log("백엔드 요청 : ",auth)
         const response = await axios
-          .post(url, {
+          .post(url, {}, {
             headers: {
-                Authorization: auth
+                Authorization: `Bearer ${token}`
             }
           })
           .then((res) => {
