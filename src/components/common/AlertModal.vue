@@ -241,6 +241,7 @@ body {
 
       &:focus, &:hover, &:focus-visible, &:target {
         border: 1px solid #21CEFF;
+        outline: none;
       }
 
       &[type=checkbox] {
