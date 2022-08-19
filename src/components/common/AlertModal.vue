@@ -304,10 +304,6 @@ body {
     a {
       color: #BDBDBD;
       text-decoration: none;
-
-      &:hover {
-        color: #21CEFF;
-      }
     }
     span {
       padding: 0 8px
