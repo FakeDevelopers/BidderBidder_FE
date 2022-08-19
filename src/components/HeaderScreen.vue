@@ -221,8 +221,8 @@ export default {
   .nav-menu {
     display: flex;
     align-items: center;
-    padding-top: 20px;
-    padding-bottom: 8px;
+    padding-top: 14px;
+    padding-bottom: 14px;
 
     & > * {
       margin-left: 22px;
