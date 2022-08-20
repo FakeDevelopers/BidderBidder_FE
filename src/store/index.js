@@ -26,7 +26,7 @@ export default createStore({
         currentPage: 1,
         searchHistory: storage.fetch(),
         searchPopularWords: ["엑조디아","일단", "대충","테스트", "월드플리퍼","블루 아카이브"],
-        autoCompleteList:["가방","가디언","가이오가","가지","가자미","가상"]
+        autoCompleteList:["test1", "test2", "test","photo","photo2","cat"]
     },
     mutations: {
         setShowModal(state, value) {
@@ -66,8 +66,10 @@ export default createStore({
         },
         setPopularCheck(state, value) {
             state.popularCheck = value
+        },addSearchWord(state,words) {
+            localStorage.setItem(words, words);
+            state.searchHistory.push(words)
         }
-
     },
     getters: {
         getModalState(state) {

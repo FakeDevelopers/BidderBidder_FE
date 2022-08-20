@@ -1,25 +1,25 @@
 <template>
-  <div>
-    <div class="searchEngin">
+  <div class="container" @click="modalControl(false)">
+    <div class="search-box" @click="$event.stopPropagation()">
+      <input type="search" placeholder="검색어를 입력하세요" class="search-input" :value="searchText"
+             @keyup.enter="searchResult(this.searchText),addKeyword(this.searchText),modalControl(false)"
+             @focus="searchingStateCheck" @input="fixSearchText" ref="cursor">
       <button @click="searchResult(this.searchText),addKeyword(this.searchText)"> 검색</button>
-      <input type="search" placeholder="검색어를 입력하세요" v-model="searchText"
-             @keyup.enter="searchResult(this.searchText),addKeyword(this.searchText),modalControl(false),searchingControl(false)"
-             @focus="modalControl(true),searchingControl(false)" @input="searchingControl(true), modalControl(true)" ref="cursor">
     </div>
-    <div class="modal-bg" v-if="showModal" @click="modalControl(false)">
+    <div class="modal-bg" v-if="showModal" @click="$event.stopPropagation()">
       <div class="white-bg">
         <div class="searchForm" v-if="!getSearchingState">
           <h4>최근검색어</h4>
           <ul>
-            <li v-for="(searchWords,index) in this.getSearchWords" v-bind:key="searchWords" class="searchList">
-              <div class="words" @click="searchResult(searchWords), modalControl(false)">
+            <li v-for="(searchWords,index) in this.getSearchWords.slice().reverse()" v-bind:key="searchWords" class="searchList">
+              <div class="words" @mousedown="searchResult(searchWords),modalControl(false)">
                 {{ searchWords }}
               </div>
-              <span class="removeBtn" @click="removeWords({searchWords,index})">
+              <span class="removeBtn" @mousedown="removeWords({searchWords,index})">
                 <em class="fa-solid fa-xmark"></em>
               </span>
             </li>
-            <li @click="clearHistory">
+            <li @mousedown="clearHistory">
               기록 모두 삭제
             </li>
           </ul>
@@ -28,7 +28,7 @@
           <h4>인기검색어</h4>
           <ul>
             <li v-for="searchList in getPopularWords" v-bind:key="searchList"
-                @click="searchResult(searchList), modalControl(false), addKeyword(searchList)" class="searchList">
+                @mousedown="searchResult(searchList), modalControl(false), addKeyword(searchList)" class="searchList">
               {{ searchList }}
             </li>
           </ul>
@@ -36,7 +36,7 @@
         <div class="searchForm" v-else-if="getSearchingState">
           <ul v-if="showAutoComplete">
             <li v-for="autoCompleteWords in getAutoWords" v-bind:key="autoCompleteWords"
-                @click="searchResult(autoCompleteWords), addKeyword(autoCompleteWords), modalControl(false)" class="searchList">
+                @mousedown="searchResult(autoCompleteWords), addKeyword(autoCompleteWords), modalControl(false)" class="searchList">
               {{ autoCompleteWords }}
             </li>
           </ul>
@@ -52,7 +52,7 @@ import {mapGetters, mapMutations} from "vuex";
 export default {
   data: function () {
     return {
-      searchText: ''
+      searchText:''
     }
   },
   computed: {
@@ -71,7 +71,8 @@ export default {
   },
   watch: {
     searchText(value) {
-      const words = /[ㄱ|ㅏ가]/;
+      this.modalChange()
+      const words = /[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z]/;
       if (words.test(value)) {
         this.autoCheck(true)
       } else {
@@ -93,7 +94,7 @@ export default {
     addKeyword(word) {
       this.searchText=word
       if (this.searchText !== "") {
-        localStorage.setItem(this.searchText, this.searchText)
+        this.$store.commit('addSearchWord',this.searchText)
         this.searchText = ''
       }
     },
@@ -106,29 +107,82 @@ export default {
         searchWord: word,
         searchType: 0
       })
+    },
+    modalChange() {
+      if(this.searchText===''){
+        this.searchingControl(false)
+      }
+      else{
+        this.searchingControl(true)
+      }
+    },
+    fixSearchText(e) {
+      this.searchText = e.target.value
+    },
+    searchingStateCheck() {
+      if(this.searchText===""){
+        this.modalControl(true)
+        this.searchingControl(false)
+      }
+      else {
+        this.modalControl(true)
+        this.searchingControl(true)
+      }
     }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "../css/variables";
+$width : 582px;
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .white-bg {
-  margin-top: 2px;
-  width: 300px;
+  width: $width;
   height: 300px;
   background: whitesmoke;
   border-radius: 8px;
   display: flex;
+  position: absolute;
+  box-sizing: border-box;
 }
 
 .modal-bg {
   display: flex;
   justify-content: center;
+  margin-left: 75px;
 }
 
-.searchEngin {
-  margin-top: 20px;
-  justify-content: center;
+.search {
+  &-box {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: $width;
+    height: 50px;
+    border: 3px solid #38BBF3;
+    margin-left: 75px;
+  }
+
+  &-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    padding: 12px 19px;
+    border: 0;
+    outline: 0;
+    &::placeholder {
+      color: #707070;
+    }
+  }
 }
 
 .searchForm {

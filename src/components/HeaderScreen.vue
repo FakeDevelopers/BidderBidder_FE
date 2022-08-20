@@ -1,6 +1,6 @@
 <template>
-  <div @click="modalControl(false)">
-    <nav class="header">
+  <div>
+    <nav class="header" @click="modalControl(false)">
       <router-link to="/products"> {{ $t('productList') }}</router-link>
       <button @click="modalOpen(true)" class="LoginBtn">{{ $t('login') }}</button>
       <select v-model="$i18n.locale">
