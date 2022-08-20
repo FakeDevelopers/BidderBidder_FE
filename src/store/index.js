@@ -22,6 +22,7 @@ export default createStore({
         resentCheck: false,
         popularCheck: false,
         productList: [],
+        accountData: [],
         listSize: 15,
         startPoint: 1,
         currentPage: 1,
@@ -37,6 +38,10 @@ export default createStore({
             } else {
                 document.body.style.overflowY = "auto"
             }
+        },
+        setAccountData(state, value) {
+            console.log("SET_ACCOUNT_DATA");
+            this.state.accountData = value;
         },
         setSearchModal(state, value) {
             state.searchModal = value
@@ -90,6 +95,9 @@ export default createStore({
         getProductList(state) {
             return state.productList
         },
+        getAccountData(state) {
+            return state.accountData
+        },
         getPopularSearch(state) {
             return state.searchPopularWords
         },
@@ -123,7 +131,7 @@ export default createStore({
             const response = await fetchList(pageInfo.listSize, pageInfo.currentPage, pageInfo.searchWord, pageInfo.searchType)
             commit('SET_LIST', response.data)
             return response
-        }
+        },
     },
     modules: {}
 })
