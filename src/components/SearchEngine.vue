@@ -1,15 +1,9 @@
 <template>
   <div class="container" @click="modalControl(false)">
     <div class="search-box" @click="$event.stopPropagation()">
-      <input type="search" placeholder="검색어를 입력하세요" class="search-input" :value="searchText"
+      <input type="text" placeholder="상품명, 판매자명 등을 입력하세요" class="search-input" :value="searchText"
              @keyup.enter="searchResult(this.searchText),addKeyword(this.searchText),modalControl(false)"
              @focus="searchingStateCheck" @input="fixSearchText" ref="cursor">
-      <button @click="searchResult(this.searchText),addKeyword(this.searchText)"> 검색</button>
-  <div>
-    <div class="search-box">
-      <input type="text" placeholder="상품명, 판매자명 등을 입력하세요" class="search-input" v-model="searchText"
-             @keyup.enter="searchResult(this.searchText),addKeyword(this.searchText),modalControl(false),searchingControl(false)"
-             @focus="modalControl(true),searchingControl(false)" @input="searchingControl(true), modalControl(true)">
       <div class="search-icon" @click="searchResult(this.searchText),addKeyword(this.searchText)">
         <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -165,7 +159,6 @@ $width: 582px;
   display: flex;
   position: absolute;
   box-sizing: border-box;
-  position: absolute;
 }
 
 .modal-bg {

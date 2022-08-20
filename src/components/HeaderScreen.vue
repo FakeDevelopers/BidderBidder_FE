@@ -334,6 +334,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+
     .divider {
       color: #BDBDBD;
       font-size: 25px;
@@ -351,5 +352,7 @@ export default {
       padding-left: 12px;
       font-size: 20px;
     }
+  }
+}
 
 </style>
