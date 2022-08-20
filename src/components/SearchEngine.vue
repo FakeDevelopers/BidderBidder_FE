@@ -11,7 +11,8 @@
         <div class="searchForm" v-if="!getSearchingState">
           <h4>최근검색어</h4>
           <ul>
-            <li v-for="(searchWords,index) in this.getSearchWords.slice().reverse()" v-bind:key="searchWords" class="searchList">
+            <li v-for="(searchWords,index) in this.getSearchWords.slice().reverse()" v-bind:key="searchWords"
+                class="searchList">
               <div class="words" @mousedown="searchResult(searchWords),modalControl(false)">
                 {{ searchWords }}
               </div>
@@ -36,7 +37,8 @@
         <div class="searchForm" v-else-if="getSearchingState">
           <ul v-if="showAutoComplete">
             <li v-for="autoCompleteWords in getAutoWords" v-bind:key="autoCompleteWords"
-                @mousedown="searchResult(autoCompleteWords), addKeyword(autoCompleteWords), modalControl(false)" class="searchList">
+                @mousedown="searchResult(autoCompleteWords), addKeyword(autoCompleteWords), modalControl(false)"
+                class="searchList">
               {{ autoCompleteWords }}
             </li>
           </ul>
@@ -52,7 +54,7 @@ import {mapGetters, mapMutations} from "vuex";
 export default {
   data: function () {
     return {
-      searchText:''
+      searchText: ''
     }
   },
   computed: {
@@ -92,9 +94,9 @@ export default {
       setPopularCheck: 'setPopularCheck'
     }),
     addKeyword(word) {
-      this.searchText=word
+      this.searchText = word
       if (this.searchText !== "") {
-        this.$store.commit('addSearchWord',this.searchText)
+        this.$store.commit('addSearchWord', this.searchText)
         this.searchText = ''
       }
     },
@@ -109,10 +111,9 @@ export default {
       })
     },
     modalChange() {
-      if(this.searchText===''){
+      if (this.searchText === '') {
         this.searchingControl(false)
-      }
-      else{
+      } else {
         this.searchingControl(true)
       }
     },
@@ -120,11 +121,10 @@ export default {
       this.searchText = e.target.value
     },
     searchingStateCheck() {
-      if(this.searchText===""){
+      if (this.searchText === "") {
         this.modalControl(true)
         this.searchingControl(false)
-      }
-      else {
+      } else {
         this.modalControl(true)
         this.searchingControl(true)
       }
@@ -135,7 +135,8 @@ export default {
 
 <style scoped lang="scss">
 @import "../css/variables";
-$width : 582px;
+
+$width: 582px;
 
 .container {
   display: flex;
@@ -179,6 +180,7 @@ $width : 582px;
     padding: 12px 19px;
     border: 0;
     outline: 0;
+
     &::placeholder {
       color: #707070;
     }

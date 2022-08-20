@@ -1,10 +1,11 @@
 import {createStore} from 'vuex'
 import {fetchList} from '../api/index'
+
 const storage = {
     fetch() {
         const arr = [];
-        if (localStorage.length>0) {
-            for(let i = 0; i< localStorage.length ; i++){
+        if (localStorage.length > 0) {
+            for (let i = 0; i < localStorage.length; i++) {
                 arr.push(localStorage.getItem(localStorage.key(i)));
             }
         }
@@ -25,8 +26,8 @@ export default createStore({
         startPoint: 1,
         currentPage: 1,
         searchHistory: storage.fetch(),
-        searchPopularWords: ["엑조디아","일단", "대충","테스트", "월드플리퍼","블루 아카이브"],
-        autoCompleteList:["test1", "test2", "test","photo","photo2","cat"]
+        searchPopularWords: ["엑조디아", "일단", "대충", "테스트", "월드플리퍼", "블루 아카이브"],
+        autoCompleteList: ["test1", "test2", "test", "photo", "photo2", "cat"]
     },
     mutations: {
         setShowModal(state, value) {
@@ -38,15 +39,15 @@ export default createStore({
         SET_LIST(state, list) {
             state.productList = list
         },
-        removeList(state,list) {
-            state.searchHistory.splice(list.index,1);
+        removeList(state, list) {
+            state.searchHistory.splice(list.index, 1);
             localStorage.removeItem(list.searchWords);
         },
         setSearchingCheck(state, value) {
             state.searchingCheck = value
         },
         setAutoWordsCheck(state, value) {
-            state.autoWordsCheck=value
+            state.autoWordsCheck = value
         },
         clearHistory() {
             this.state.searchHistory = []
@@ -66,7 +67,7 @@ export default createStore({
         },
         setPopularCheck(state, value) {
             state.popularCheck = value
-        },addSearchWord(state,words) {
+        }, addSearchWord(state, words) {
             localStorage.setItem(words, words);
             state.searchHistory.push(words)
         }
