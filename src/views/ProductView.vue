@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div @click="modalControl(false)">
     <SearchEngine></SearchEngine>
-    <ul class="ListContainer" @click="modalControl(false)">
+    <ul class="ListContainer" >
       <li v-for="product in listItems.items" v-bind:key="product.title" class="listDesign">
         <img :src="`${this.apiAddress}${product.thumbnail}`" class="image-container" alt="상품 사진">
         <section>
