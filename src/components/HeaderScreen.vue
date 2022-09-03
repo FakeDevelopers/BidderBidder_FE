@@ -8,29 +8,7 @@
           {{ locale }}
         </option>
       </select>
-      <modal v-if="this.showModal">
-        <template v-slot:header>
-          <h3>{{ $t('login') }}</h3>
-        </template>
-        <template v-slot:body>
-          <form v-on:submit.prevent="submitForm">
-            <div>
-              <label for="username">id: </label>
-              <input id="username" type="text" v-model="email">
-            </div>
-            <br>
-            <div>
-              <label for="password">pw:</label>
-              <input id="password" type="password" v-model="passwd">
-            </div>
-            <br><br>
-            <button type="submit">{{ $t('login') }}</button>
-          </form>
-        </template>
-        <template v-slot:footer>
-          <label><input type="checkbox" value="true">{{ $t('automaticLogin') }}</label>
-        </template>
-      </modal>
+      <modal v-if="this.showModal"></modal>
     </nav>
   </div>
 </template>
@@ -38,17 +16,10 @@
 <script>
 import Modal from './common/AlertModal.vue'
 import {mapGetters, mapMutations} from 'vuex'
-import {submitAccount} from "@/api";
 
 
 export default {
   name: "login",
-  data() {
-    return {
-      email: '',
-      passwd: '',
-    }
-  },
   components: {
     Modal
   },
@@ -56,9 +27,6 @@ export default {
     ...mapMutations({
       modalOpen: 'setShowModal'
     }),
-    submitForm: function () {
-      submitAccount(this.email, this.passwd)
-    },
   },
   computed: {
     ...mapGetters({

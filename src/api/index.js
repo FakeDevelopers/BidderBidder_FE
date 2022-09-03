@@ -1,11 +1,13 @@
 import axios from 'axios'
 import {config} from './baseUrl'
 
-async function fetchList(listNum, pageNum) {
+async function fetchList(listNum, pageNum, searchWords, searchTypes) {
     try {
         return await axios.get(`${config.baseUrl}/product/getPageProductList`, {
             params: {
                 listCount: listNum,
+                searchType: searchTypes,
+                searchWord: searchWords,
                 page: pageNum
             }
         })
