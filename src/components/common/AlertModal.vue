@@ -124,7 +124,7 @@ body {
 
   * {
     box-sizing: border-box;
-    font-family: Pretendard;
+    font-family: Pretendard, Helvetica, Arial, sans-serif;;
     font-weight: 600;
   }
 
@@ -248,6 +248,7 @@ body {
 
       &:focus, &:hover, &:focus-visible, &:target {
         border: 1px solid #21CEFF;
+        outline: none;
       }
 
       &[type=checkbox] {
@@ -266,7 +267,6 @@ body {
           background-image: url("data:image/svg+xml,%3Csvg width='19' height='19' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='9.5' cy='9.5' r='8.75' stroke='%23BDBDBD' stroke-width='1.5'/%3E%3Cpath d='M5.5 10 8 12.5 14 6' stroke='%23BDBDBD' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
         }
         &:checked + label {
-          color: #21CEFF;
           background-image: url("data:image/svg+xml,%3Csvg width='19' height='19' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='9.5' cy='9.5' r='8.75' stroke='%2321CEFF' stroke-width='1.5'/%3E%3Cpath d='M5.5 10 8 12.5 14 6' stroke='%2321CEFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
         }
       }
@@ -311,10 +311,6 @@ body {
     a {
       color: #BDBDBD;
       text-decoration: none;
-
-      &:hover {
-        color: #21CEFF;
-      }
     }
     span {
       padding: 0 8px
