@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="modalControl(false)">
     <div class="header">
       <div class="top-nav">
         <div class="app-cta">
@@ -350,6 +350,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+
     .divider {
       color: #BDBDBD;
       font-size: 25px;
@@ -367,61 +368,7 @@ export default {
       padding-left: 12px;
       font-size: 20px;
     }
-
-    .icon {
-      width: 25px;
-      height: 25px;
-    }
-  }
-
-  a.category-expand {
-    .icon {
-      width: 18px;
-      height: 18px;
-    }
   }
 }
 
-// Button
-.button {
-  display: inline-flex;
-  text-decoration: none;
-  color: #030303;
-
-  // Button Type
-  &__default {
-    border: 1px solid #BDBDBD;
-  }
-  &__icon-text {
-    border: 1px solid #BDBDBD;
-    justify-content: start;
-    align-items: center;
-    vertical-align: center;
-    border-radius: 7.5px;
-    font-size: 14px;
-    flex-grow: 1;
-    padding: 18px 22px;
-    height: 54px;
-
-    .icon {
-      width: 32px;
-      height: 32px;
-      background-repeat: no-repeat;
-      background-position: center;
-      justify-content: start;
-      flex-shrink: 1;
-    }
-    .text {
-      flex-grow: 1;
-    }
-  }
-
-  &__link {
-    border: 0;
-    &__primary {
-      color: #21CEFF;
-      border: 0;
-    }
-  }
-}
 </style>
