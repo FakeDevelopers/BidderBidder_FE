@@ -243,7 +243,7 @@ export default {
   padding-top: 51px;
   padding-bottom: 31px;
 
-  logo {
+  .logo {
     cursor: pointer;
   }
 
