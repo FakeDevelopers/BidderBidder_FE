@@ -174,7 +174,7 @@ export default {
 @import "src/css/variables";
 * {
   box-sizing: border-box;
-  font-family: Pretendard;
+  font-family: Pretendard, Helvetica, Arial, sans-serif;
   font-weight: 600;
 }
 // Header
