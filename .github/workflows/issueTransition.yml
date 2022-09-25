@@ -36,3 +36,4 @@ jobs:
         with:
           issue: ${{ steps.jira-ticket.outputs.issue }}
           transition: "Done"
+
