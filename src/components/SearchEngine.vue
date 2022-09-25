@@ -2,43 +2,43 @@
   <div class="container" @click="modalControl(false)">
     <div class="search-box" @click="$event.stopPropagation()">
       <input type="search" placeholder="검색어를 입력하세요" class="search-input" :value="searchText"
-             @keyup.enter="searchResult(this.searchText),addKeyword(this.searchText),modalControl(false)"
+             @keyup.enter="searchResult(this.searchText),modalControl(false)"
              @focus="searchingStateCheck" @input="fixSearchText" ref="cursor">
-      <button @click="searchResult(this.searchText),addKeyword(this.searchText)"> 검색</button>
+      <button @click="searchResult(this.searchText)"> 검색</button>
     </div>
     <div class="modal-bg" v-if="showModal" @click="$event.stopPropagation()">
-      <div class="white-bg">
-        <div class="searchForm" v-if="!getSearchingState">
+      <div class="white-bg" :style="{width: this.searchBarWidth+'px'}">
+        <div class="search-form" v-if="!getSearchingState">
           <h4>최근검색어</h4>
           <ul>
-            <li v-for="(searchWords,index) in this.getSearchWords.slice().reverse()" v-bind:key="searchWords"
-                class="searchList">
-              <div class="words" @mousedown="searchResult(searchWords),modalControl(false)">
+            <li v-for="(searchWords,index) in this.getSearchWords" v-bind:key="index"
+                class="search-list">
+              <div class="words" @click="searchResult(searchWords),modalControl(false)" @dragstart="dragPrevent">
                 {{ searchWords }}
               </div>
-              <span class="removeBtn" @mousedown="removeWords({searchWords,index})">
+              <span class="removeBtn" @click="removeWords({searchWords,index})" @dragstart="dragPrevent">
                 <em class="fa-solid fa-xmark"></em>
               </span>
             </li>
-            <li @mousedown="clearHistory">
+            <li @click="clearHistory">
               기록 모두 삭제
             </li>
           </ul>
         </div>
-        <div class="searchForm" v-if="!getSearchingState">
+        <div class="search-form" v-if="!getSearchingState">
           <h4>인기검색어</h4>
           <ul>
             <li v-for="searchList in getPopularWords" v-bind:key="searchList"
-                @mousedown="searchResult(searchList), modalControl(false), addKeyword(searchList)" class="searchList">
+                @click="searchResult(searchList), modalControl(false)" class="search-list" @dragstart="dragPrevent">
               {{ searchList }}
             </li>
           </ul>
         </div>
-        <div class="searchForm" v-else-if="getSearchingState">
+        <div class="search-form" v-else-if="getSearchingState">
           <ul v-if="showAutoComplete">
             <li v-for="autoCompleteWords in getAutoWords" v-bind:key="autoCompleteWords"
-                @mousedown="searchResult(autoCompleteWords), addKeyword(autoCompleteWords), modalControl(false)"
-                class="searchList">
+                @click="searchResult(autoCompleteWords), modalControl(false)"
+                class="search-list" @dragstart="dragPrevent">
               {{ autoCompleteWords }}
             </li>
           </ul>
@@ -54,7 +54,8 @@ import {mapGetters, mapMutations} from "vuex";
 export default {
   data: function () {
     return {
-      searchText: ''
+      searchText: '',
+      modalWidth: ''
     }
   },
   computed: {
@@ -70,11 +71,14 @@ export default {
       getResentCheck: 'getResentCheck',
       getPopularCheck: 'getPopularCheck'
     }),
+    searchBarWidth() {
+      return document.querySelector('.search-box').scrollWidth
+    }
   },
   watch: {
     searchText(value) {
       this.modalChange()
-      const words = /[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z]/;
+      const words = /[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z!?@#$%^&*():;+-=~{}<>\\_[\]|"',./`]/;
       if (words.test(value)) {
         this.autoCheck(true)
       } else {
@@ -91,7 +95,7 @@ export default {
       clearHistory: 'clearHistory',
       setStartPoint: 'setStartPoint',
       setResentCheck: 'setResentCheck',
-      setPopularCheck: 'setPopularCheck'
+      setPopularCheck: 'setPopularCheck',
     }),
     addKeyword(word) {
       this.searchText = word
@@ -109,6 +113,11 @@ export default {
         searchWord: word,
         searchType: 0
       })
+      if (localStorage.getItem(word)) {
+        return false
+      } else {
+        this.addKeyword(word)
+      }
     },
     modalChange() {
       if (this.searchText === '') {
@@ -121,13 +130,11 @@ export default {
       this.searchText = e.target.value
     },
     searchingStateCheck() {
-      if (this.searchText === "") {
-        this.modalControl(true)
-        this.searchingControl(false)
-      } else {
-        this.modalControl(true)
-        this.searchingControl(true)
-      }
+      this.modalControl(true)
+      this.modalChange()
+    },
+    dragPrevent() {
+      return false
     }
   }
 }
@@ -146,7 +153,6 @@ $width: 582px;
 }
 
 .white-bg {
-  width: $width;
   height: 300px;
   background: whitesmoke;
   border-radius: 8px;
@@ -185,16 +191,16 @@ $width: 582px;
       color: #707070;
     }
   }
-}
 
-.searchForm {
-  width: 100%;
-}
+  &-form {
+    width: 100%;
+  }
 
-.searchList {
-  display: flex;
-  text-align: left;
-  justify-content: space-between;
+  &-list {
+    display: flex;
+    text-align: left;
+    justify-content: space-between;
+  }
 }
 
 .removeBtn {

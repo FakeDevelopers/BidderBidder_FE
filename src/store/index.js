@@ -4,11 +4,10 @@ import {fetchList} from '../api/index'
 const storage = {
     fetch() {
         const arr = [];
-        if (localStorage.length > 0) {
-            for (let i = 0; i < localStorage.length; i++) {
-                arr.push(localStorage.getItem(localStorage.key(i)));
-            }
+        for (let i = 0; i < localStorage.length; i++) {
+            arr.push(localStorage.getItem(localStorage.key(i)));
         }
+
         return arr;
     },
 };
@@ -67,7 +66,8 @@ export default createStore({
         },
         setPopularCheck(state, value) {
             state.popularCheck = value
-        }, addSearchWord(state, words) {
+        },
+        addSearchWord(state, words) {
             localStorage.setItem(words, words);
             state.searchHistory.push(words)
         }
