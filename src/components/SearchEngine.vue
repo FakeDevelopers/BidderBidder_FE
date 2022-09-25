@@ -78,7 +78,7 @@ export default {
   watch: {
     searchText(value) {
       this.modalChange()
-      const words = /[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z!?@#$%^&*():;+-=~{}<>\\_[\]|"',./`]/;
+      const words = /[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z!?@#$%^&*()+-=~{}<>\\_[\]|"',./`]/;
       if (words.test(value)) {
         this.autoCheck(true)
       } else {
