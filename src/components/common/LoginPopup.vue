@@ -79,7 +79,7 @@ import {submitAccount} from "@/api";
 export default {
   methods: {
     ...mapMutations({
-      modalClose: 'setShowModal'
+      modalClose: 'setShowLoginPopup'
     }),
     submitForm: function () {
       submitAccount(this.id, this.passwd)

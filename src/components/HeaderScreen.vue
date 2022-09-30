@@ -146,7 +146,7 @@
 </template>
 
 <script>
-import Modal from './common/AlertModal.vue'
+import Modal from './common/LoginPopup.vue'
 import {mapGetters, mapMutations} from 'vuex'
 
 
@@ -157,7 +157,7 @@ export default {
   },
   methods: {
     ...mapMutations({
-      modalOpen: 'setShowModal'
+      modalOpen: 'setShowLoginPopup'
     }),
   },
   computed: {
