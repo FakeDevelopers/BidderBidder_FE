@@ -11,7 +11,7 @@ export default createStore({
             this.state.showLoginPopup = value
             document.body.style.overflowY = value ? "hidden" : "auto";
         },
-        SET_LIST(state, list) {
+        setList(state, list) {
             state.productList = list
         },
     },
