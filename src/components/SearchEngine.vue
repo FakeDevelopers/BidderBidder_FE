@@ -228,7 +228,7 @@ li.selected-page {
   padding-top: 51px;
   padding-bottom: 31px;
 
-  logo {
+  .logo {
     cursor: pointer;
   }
 
@@ -315,4 +315,3 @@ li.selected-page {
   }
 }
 </style>
-

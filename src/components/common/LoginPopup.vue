@@ -80,7 +80,7 @@ import {firebaseGoogleAuth} from "@/firebase"
 export default {
   methods: {
     ...mapMutations({
-      modalClose: 'setShowModal'
+      modalClose: 'setShowLoginPopup'
     }),
     submitForm: function () {
       submitAccount(this.id, this.passwd)

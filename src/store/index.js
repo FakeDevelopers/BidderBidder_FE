@@ -15,6 +15,7 @@ const storage = {
 
 export default createStore({
     state: {
+        showLoginPopup: false,
         showModal: false,
         searchModal: false,
         searchingCheck: false,
@@ -31,13 +32,8 @@ export default createStore({
         autoCompleteList: ["test1", "test2", "test", "photo", "photo2", "cat"]
     },
     mutations: {
-        setShowModal(state, value) {
-            state.showModal = value
-            if (value) {
-                document.body.style.overflowY = "hidden"
-            } else {
-                document.body.style.overflowY = "auto"
-            }
+        setShowLoginPopup(state, value) {
+            this.state.showLoginPopup = value
         },
         setAccountData(state, value) {
             console.log("SET_ACCOUNT_DATA");
@@ -84,7 +80,7 @@ export default createStore({
     },
     getters: {
         getModalState(state) {
-            return state.showModal
+            return state.showLoginPopup
         },
         getSearchModalState(state) {
             return state.searchModal
