@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="header" @click="modalControl(false)">
+    <nav class="header" @click="setSearchModal(false)">
       <router-link to="/products"> {{ $t('productList') }}</router-link>
       <button @click="modalOpen(true)" class="LoginBtn">{{ $t('login') }}</button>
       <select v-model="$i18n.locale">
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import Modal from './common/AlertModal.vue'
+import Modal from './common/LoginPopup.vue'
 import {mapGetters, mapMutations} from 'vuex'
 
 
@@ -25,8 +25,8 @@ export default {
   },
   methods: {
     ...mapMutations({
-      modalOpen: 'setShowModal',
-      modalControl: 'setSearchModal'
+      modalOpen: 'setShowLoginPopup',
+      setSearchModal: 'setSearchModal'
     }),
   },
   computed: {
