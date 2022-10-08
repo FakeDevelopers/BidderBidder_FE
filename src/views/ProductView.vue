@@ -1,7 +1,7 @@
 <template>
-  <div @click="modalControl(false)">
+  <div>
     <SearchEngine></SearchEngine>
-    <ul class="ListContainer" >
+    <ul class="ListContainer" @click="setSearchModal(false)">
       <li v-for="product in listItems.items" v-bind:key="product.title" class="listDesign">
         <img :src="`${this.apiAddress}${product.thumbnail}`" class="image-container" alt="상품 사진">
         <section>
@@ -23,7 +23,7 @@
         </section>
       </li>
     </ul>
-    <div>
+    <div @click="setSearchModal(false)">
       <ul class="pagination-frame">
         <li @click="startPointChange(
             'start'
@@ -45,7 +45,7 @@
         <li
             v-for="n in paginationUnits"
             :key="n"
-            :class="[n === currentPage? 'selected-page' : '', 'page-btn']"
+            :class="[n === this.getCurrentPage? 'selected-page' : '', 'page-btn']"
             @click="changeCurrentPage(n),$router.push(/products/+ n)"
         >
           <a class="page-text">
@@ -152,7 +152,7 @@ export default {
       return val.toLocaleString()
     },
     ...mapMutations({
-      modalControl: 'setSearchModal',
+      setSearchModal: 'setSearchModal',
       setStartPoint: 'setStartPoint',
       setCurrentPage: 'setCurrentPage'
     })
@@ -171,11 +171,11 @@ div {
 
 .ListContainer {
   display: grid;
-  margin-top: 50px;
   grid-template-rows: repeat(5, 300px);
   grid-template-columns: repeat(3, 300px);
   justify-content: center;
-  margin-bottom: 50px;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .image-container {
