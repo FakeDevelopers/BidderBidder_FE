@@ -1,20 +1,10 @@
 import {createStore} from 'vuex'
 import {fetchList} from '../api/index'
 
-const storage = {
-    fetch() {
-        const arr = [];
-        for (let i = 0; i < localStorage.length; i++) {
-            arr.push(localStorage.getItem(localStorage.key(i)));
-        }
-
-        return arr;
-    },
-};
 
 export default createStore({
     state: {
-        showModal: false,
+        showLoginPopup: false,
         searchModal: false,
         searchingCheck: false,
         autoWordsCheck: false,
@@ -24,13 +14,13 @@ export default createStore({
         listSize: 15,
         startPoint: 1,
         currentPage: 1,
-        searchHistory: storage.fetch(),
+        searchHistory: [],
         searchPopularWords: ["엑조디아", "일단", "대충", "테스트", "월드플리퍼", "블루 아카이브"],
         autoCompleteList: ["test1", "test2", "test", "photo", "photo2", "cat"]
     },
     mutations: {
-        setShowModal(state, value) {
-            state.showModal = value
+        setShowLoginPopup(state, value) {
+            state.showLoginPopup = value
         },
         setSearchModal(state, value) {
             state.searchModal = value
@@ -38,9 +28,9 @@ export default createStore({
         SET_LIST(state, list) {
             state.productList = list
         },
-        removeList(state, list) {
+        removeWords(state, list) {
             state.searchHistory.splice(list.index, 1);
-            localStorage.removeItem(list.searchWords);
+            localStorage.setItem("searchHistory", JSON.stringify(state.searchHistory));
         },
         setSearchingCheck(state, value) {
             state.searchingCheck = value
@@ -68,13 +58,32 @@ export default createStore({
             state.popularCheck = value
         },
         addSearchWord(state, words) {
-            localStorage.setItem(words, words);
-            state.searchHistory.push(words)
+            let searchHistoryWords = localStorage.getItem("searchHistory")
+
+            let searchHistory = JSON.parse(searchHistoryWords)
+            if (searchHistory !== null) {
+                if (searchHistory.includes(words)) {
+                    let idx = searchHistory.indexOf(words)
+                    state.searchHistory.splice(idx, 1)
+
+                    state.searchHistory.unshift(words)
+                    localStorage.setItem("searchHistory", JSON.stringify(state.searchHistory));
+                } else {
+                    state.searchHistory.unshift(words)
+                    localStorage.setItem("searchHistory", JSON.stringify(state.searchHistory));
+                }
+            } else {
+                state.searchHistory.unshift(words)
+                localStorage.setItem("searchHistory", JSON.stringify(state.searchHistory));
+            }
+        },
+        setSearchHistory(state, value) {
+            state.searchHistory = value
         }
     },
     getters: {
         getModalState(state) {
-            return state.showModal
+            return state.showLoginPopup
         },
         getSearchModalState(state) {
             return state.searchModal

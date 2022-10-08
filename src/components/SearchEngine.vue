@@ -1,19 +1,20 @@
 <template>
-  <div class="container" @click="modalControl(false)">
+  <div class="container" @click="setSearchModal(false)">
     <div class="search-box" @click="$event.stopPropagation()">
       <input type="search" placeholder="검색어를 입력하세요" class="search-input" :value="searchText"
-             @keyup.enter="searchResult(this.searchText),modalControl(false)"
+             @keyup.enter="searchResult(this.searchText),setSearchModal(false)"
              @focus="searchingStateCheck" @input="fixSearchText" ref="cursor">
       <button @click="searchResult(this.searchText)"> 검색</button>
     </div>
-    <div class="modal-bg" v-if="showModal" @click="$event.stopPropagation()">
+    <div class="modal-bg" v-if="getSearchModalState" @click="$event.stopPropagation()" @drop="setSearchModal(true)"
+         @dragenter.prevent @dragover.prevent>
       <div class="white-bg" :style="{width: this.searchBarWidth+'px'}">
         <div class="search-form" v-if="!getSearchingState">
           <h4>최근검색어</h4>
           <ul>
             <li v-for="(searchWords,index) in this.getSearchWords" v-bind:key="index"
                 class="search-list">
-              <div class="words" @click="searchResult(searchWords),modalControl(false)" @dragstart="dragPrevent">
+              <div class="words" @click="searchResult(searchWords),setSearchModal(false)" @dragstart="dragPrevent">
                 {{ searchWords }}
               </div>
               <span class="removeBtn" @click="removeWords({searchWords,index})" @dragstart="dragPrevent">
@@ -28,16 +29,16 @@
         <div class="search-form" v-if="!getSearchingState">
           <h4>인기검색어</h4>
           <ul>
-            <li v-for="searchList in getPopularWords" v-bind:key="searchList"
-                @click="searchResult(searchList), modalControl(false)" class="search-list" @dragstart="dragPrevent">
+            <li v-for="searchList in getPopularSearch" v-bind:key="searchList"
+                @click="searchResult(searchList), setSearchModal(false)" class="search-list" @dragstart="dragPrevent">
               {{ searchList }}
             </li>
           </ul>
         </div>
         <div class="search-form" v-else-if="getSearchingState">
-          <ul v-if="showAutoComplete">
-            <li v-for="autoCompleteWords in getAutoWords" v-bind:key="autoCompleteWords"
-                @click="searchResult(autoCompleteWords), modalControl(false)"
+          <ul v-if="getAutoWordsState">
+            <li v-for="autoCompleteWords in getAutoCompleted" v-bind:key="autoCompleteWords"
+                @click="searchResult(autoCompleteWords), setSearchModal(false)"
                 class="search-list" @dragstart="dragPrevent">
               {{ autoCompleteWords }}
             </li>
@@ -58,14 +59,23 @@ export default {
       modalWidth: ''
     }
   },
+  created() {
+
+    let searchHistoryWords = localStorage.getItem('searchHistory')
+
+    let searchHistory = JSON.parse(searchHistoryWords)
+
+    this.setSearchHistory(searchHistory)
+
+  },
   computed: {
     ...mapGetters({
-      showModal: 'getSearchModalState',
+      getSearchModalState: 'getSearchModalState',
       getSearchWords: 'getSearchWords',
       getSearchingState: 'getSearchingState',
-      getPopularWords: 'getPopularSearch',
-      getAutoWords: 'getAutoCompleted',
-      showAutoComplete: 'getAutoWordsState',
+      getPopularSearch: 'getPopularSearch',
+      getAutoCompleted: 'getAutoCompleted',
+      getAutoWordsState: 'getAutoWordsState',
       getListSize: 'getListSize',
       getCurrentPage: 'getCurrentPage',
       getResentCheck: 'getResentCheck',
@@ -77,60 +87,59 @@ export default {
   },
   watch: {
     searchText(value) {
+      if (value !== '') {
+        this.setSearchModal(true)
+      }
       this.modalChange()
-      const words = /[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z!?@#$%^&*()+-=~{}<>\\_[\]|"',./`]/;
-      if (words.test(value)) {
-        this.autoCheck(true)
+
+      if (value !== 0) {
+        this.setAutoWordsCheck(true)
       } else {
-        this.autoCheck(false)
+        this.setAutoWordsCheck(false)
       }
     }
   },
   methods: {
     ...mapMutations({
-      modalControl: 'setSearchModal',
-      searchingControl: 'setSearchingCheck',
-      removeWords: 'removeList',
-      autoCheck: 'setAutoWordsCheck',
+      setSearchModal: 'setSearchModal',
+      setSearchingCheck: 'setSearchingCheck',
+      removeWords: 'removeWords',
+      setAutoWordsCheck: 'setAutoWordsCheck',
       clearHistory: 'clearHistory',
       setStartPoint: 'setStartPoint',
       setResentCheck: 'setResentCheck',
       setPopularCheck: 'setPopularCheck',
+      setSearchHistory: 'setSearchHistory'
     }),
-    addKeyword(word) {
-      this.searchText = word
+    addKeyword(words) {
+      this.searchText = words
       if (this.searchText !== "") {
         this.$store.commit('addSearchWord', this.searchText)
-        this.searchText = ''
       }
     },
-    searchResult(word) {
+    searchResult(words) {
       this.setStartPoint(1)
       this.$router.push(/products/ + this.getCurrentPage)
       this.$store.dispatch("FETCH_LIST", {
         listSize: this.getListSize,
         currentPage: this.getCurrentPage,
-        searchWord: word,
+        searchWord: words,
         searchType: 0
       })
-      if (localStorage.getItem(word)) {
-        return false
-      } else {
-        this.addKeyword(word)
-      }
+      this.addKeyword(words)
     },
     modalChange() {
       if (this.searchText === '') {
-        this.searchingControl(false)
+        this.setSearchingCheck(false)
       } else {
-        this.searchingControl(true)
+        this.setSearchingCheck(true)
       }
     },
     fixSearchText(e) {
       this.searchText = e.target.value
     },
     searchingStateCheck() {
-      this.modalControl(true)
+      this.setSearchModal(true)
       this.modalChange()
     },
     dragPrevent() {
