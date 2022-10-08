@@ -9,7 +9,6 @@ export default createStore({
     mutations: {
         setShowLoginPopup(state, value) {
             this.state.showLoginPopup = value
-            document.body.style.overflowY = value ? "hidden" : "auto";
         },
         setList(state, list) {
             state.productList = list
