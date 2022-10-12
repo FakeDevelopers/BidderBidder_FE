@@ -38,8 +38,8 @@ export default createStore({
         setAutoWordsCheck(state, value) {
             state.autoWordsCheck = value
         },
-        clearHistory() {
-            this.state.searchHistory = []
+        clearHistory(state) {
+            state.searchHistory = []
             localStorage.clear()
         },
         setListSize(state, value) {

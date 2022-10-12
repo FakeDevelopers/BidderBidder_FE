@@ -2,7 +2,7 @@
   <div class="container" @click="setSearchModal(false)">
     <div class="search-box" @click="$event.stopPropagation()">
       <input type="search" placeholder="검색어를 입력하세요" class="search-input" :value="searchText"
-             @keyup.enter="searchResult(this.searchText),setSearchModal(false)"
+             @keyup.enter="searchResult(this.searchText)"
              @focus="searchingStateCheck" @input="fixSearchText" ref="cursor">
       <button @click="searchResult(this.searchText)"> 검색</button>
     </div>
@@ -14,7 +14,7 @@
           <ul>
             <li v-for="(searchWords,index) in this.getSearchWords" v-bind:key="index"
                 class="search-list">
-              <div class="words" @click="searchResult(searchWords),setSearchModal(false)" @dragstart="dragPrevent">
+              <div class="words" @click="searchResult(searchWords)" @dragstart="dragPrevent">
                 {{ searchWords }}
               </div>
               <span class="removeBtn" @click="removeWords({searchWords,index})" @dragstart="dragPrevent">
@@ -30,7 +30,7 @@
           <h4>인기검색어</h4>
           <ul>
             <li v-for="searchList in getPopularSearch" v-bind:key="searchList"
-                @click="searchResult(searchList), setSearchModal(false)" class="search-list" @dragstart="dragPrevent">
+                @click="searchResult(searchList)" class="search-list" @dragstart="dragPrevent">
               {{ searchList }}
             </li>
           </ul>
@@ -38,7 +38,7 @@
         <div class="search-form" v-else-if="getSearchingState">
           <ul v-if="getAutoWordsState">
             <li v-for="autoCompleteWords in getAutoCompleted" v-bind:key="autoCompleteWords"
-                @click="searchResult(autoCompleteWords), setSearchModal(false)"
+                @click="searchResult(autoCompleteWords)"
                 class="search-list" @dragstart="dragPrevent">
               {{ autoCompleteWords }}
             </li>
@@ -87,11 +87,7 @@ export default {
   },
   watch: {
     searchText(value) {
-      if (value !== '') {
-        this.setSearchModal(true)
-      }
       this.modalChange()
-
       if (value !== 0) {
         this.setAutoWordsCheck(true)
       } else {
@@ -127,6 +123,7 @@ export default {
         searchType: 0
       })
       this.addKeyword(words)
+      this.setSearchModal(false)
     },
     modalChange() {
       if (this.searchText === '') {
@@ -137,6 +134,7 @@ export default {
     },
     fixSearchText(e) {
       this.searchText = e.target.value
+      this.setSearchModal(true)
     },
     searchingStateCheck() {
       this.setSearchModal(true)
