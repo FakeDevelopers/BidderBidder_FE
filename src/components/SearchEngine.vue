@@ -21,7 +21,7 @@
                 <em class="fa-solid fa-xmark"></em>
               </span>
             </li>
-            <li @click="clearHistory">
+            <li @click="clearAllHistory" v-if="this.showButton">
               기록 모두 삭제
             </li>
           </ul>
@@ -56,7 +56,8 @@ export default {
   data: function () {
     return {
       searchText: '',
-      modalWidth: ''
+      modalWidth: '',
+      showButton: false
     }
   },
   created() {
@@ -66,6 +67,10 @@ export default {
     let searchHistory = JSON.parse(searchHistoryWords)
 
     this.setSearchHistory(searchHistory)
+
+    if (searchHistory) {
+      this.showButtonControl(true)
+    }
 
   },
   computed: {
@@ -124,6 +129,7 @@ export default {
       })
       this.addKeyword(words)
       this.setSearchModal(false)
+      this.showButtonControl(true)
     },
     modalChange() {
       if (this.searchText === '') {
@@ -142,7 +148,15 @@ export default {
     },
     dragPrevent() {
       return false
+    },
+    showButtonControl(value) {
+      this.showButton = value
+    },
+    clearAllHistory() {
+      this.clearHistory()
+      this.showButtonControl(false)
     }
+
   }
 }
 </script>
