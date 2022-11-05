@@ -17,7 +17,7 @@
               <div class="words" @click="searchResult(searchWords)" @dragstart="dragPrevent">
                 {{ searchWords }}
               </div>
-              <span class="removeBtn" @click="removeWords({searchWords,index})" @dragstart="dragPrevent">
+              <span class="removeBtn" @click="removeOneWords(searchWords,index)" @dragstart="dragPrevent">
                 <em class="fa-solid fa-xmark"></em>
               </span>
             </li>
@@ -155,6 +155,17 @@ export default {
     clearAllHistory() {
       this.clearHistory()
       this.showButtonControl(false)
+    },
+    removeOneWords(searchWords,index) {
+      this. removeWords({searchWords,index})
+
+      if(this.getSearchWords.length){
+        this.showButtonControl(true)
+      }
+      else{
+        this.clearHistory()
+        this.showButtonControl(false)
+      }
     }
 
   }
