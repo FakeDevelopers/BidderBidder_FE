@@ -62,7 +62,7 @@ export default createStore({
 
             let searchHistory = JSON.parse(searchHistoryWords)
             let idx = searchHistory.indexOf(words)
-            if (idx !==-1) {
+            if (idx !== -1) {
                 state.searchHistory.splice(idx, 1)
             }
             state.searchHistory.unshift(words)

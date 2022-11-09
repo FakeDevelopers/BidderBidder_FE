@@ -116,7 +116,7 @@ export default {
       }
     },
     searchResult(words) {
-      if(words.trim()){
+      if (words.trim()) {
         this.setStartPoint(1)
         this.$router.push(/products/ + this.getCurrentPage)
         this.$store.dispatch("FETCH_LIST", {
@@ -146,13 +146,12 @@ export default {
       this.clearHistory()
       this.showButtonControl(false)
     },
-    removeOneWords(searchWords,index) {
-      this. removeWords({searchWords,index})
+    removeOneWords(searchWords, index) {
+      this.removeWords({searchWords, index})
 
-      if(this.getSearchWords.length){
+      if (this.getSearchWords.length) {
         this.showButtonControl(true)
-      }
-      else{
+      } else {
         this.clearAllHistory()
       }
     }
