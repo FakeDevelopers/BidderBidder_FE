@@ -62,18 +62,12 @@ export default createStore({
                 if (searchHistory.includes(words)) {
                     let idx = searchHistory.indexOf(words)
                     state.searchHistory.splice(idx, 1)
-
-                    state.searchHistory.unshift(words)
-                    localStorage.setItem("searchHistory", JSON.stringify(state.searchHistory));
-                } else {
-                    state.searchHistory.unshift(words)
-                    localStorage.setItem("searchHistory", JSON.stringify(state.searchHistory));
                 }
             } else {
                 state.searchHistory = []
-                state.searchHistory.unshift(words)
-                localStorage.setItem("searchHistory", JSON.stringify(state.searchHistory));
             }
+            state.searchHistory.unshift(words)
+            localStorage.setItem("searchHistory", JSON.stringify(state.searchHistory));
         },
         setSearchHistory(state, value) {
             state.searchHistory = value
