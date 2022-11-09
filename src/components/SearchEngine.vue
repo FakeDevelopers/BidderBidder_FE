@@ -91,7 +91,7 @@ export default {
   },
   watch: {
     searchText() {
-      this.modalChange()
+      this.setSearchingCheck(this.searchText)
     }
   },
   methods: {
@@ -124,20 +124,13 @@ export default {
       this.setSearchModal(false)
       this.showButtonControl(true)
     },
-    modalChange() {
-      if (this.searchText === '') {
-        this.setSearchingCheck(false)
-      } else {
-        this.setSearchingCheck(true)
-      }
-    },
     fixSearchText(e) {
       this.searchText = e.target.value
       this.setSearchModal(true)
     },
     searchingStateCheck() {
       this.setSearchModal(true)
-      this.modalChange()
+      this.setSearchingCheck(this.searchText)
     },
     showButtonControl(value) {
       this.showButton = value
