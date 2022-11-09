@@ -14,10 +14,10 @@
           <ul>
             <li v-for="(searchWords,index) in this.getSearchWords" v-bind:key="index"
                 class="search-list">
-              <div class="words" @click="searchResult(searchWords)" @dragstart="dragPrevent">
+              <div class="words" @click="searchResult(searchWords)" @dragstart="false">
                 {{ searchWords }}
               </div>
-              <span class="removeBtn" @click="removeOneWords(searchWords,index)" @dragstart="dragPrevent">
+              <span class="removeBtn" @click="removeOneWords(searchWords,index)" @dragstart="false">
                 <em class="fa-solid fa-xmark"></em>
               </span>
             </li>
@@ -30,16 +30,16 @@
           <h4>인기검색어</h4>
           <ul>
             <li v-for="searchList in getPopularSearch" v-bind:key="searchList"
-                @click="searchResult(searchList)" class="search-list" @dragstart="dragPrevent">
+                @click="searchResult(searchList)" class="search-list" @dragstart="false">
               {{ searchList }}
             </li>
           </ul>
         </div>
         <div class="search-form" v-else-if="getSearchingState">
-          <ul v-if="getAutoWordsState">
+          <ul>
             <li v-for="autoCompleteWords in getAutoCompleted" v-bind:key="autoCompleteWords"
                 @click="searchResult(autoCompleteWords)"
-                class="search-list" @dragstart="dragPrevent">
+                class="search-list" @dragstart="false">
               {{ autoCompleteWords }}
             </li>
           </ul>
@@ -80,7 +80,6 @@ export default {
       getSearchingState: 'getSearchingState',
       getPopularSearch: 'getPopularSearch',
       getAutoCompleted: 'getAutoCompleted',
-      getAutoWordsState: 'getAutoWordsState',
       getListSize: 'getListSize',
       getCurrentPage: 'getCurrentPage',
       getResentCheck: 'getResentCheck',
@@ -91,13 +90,8 @@ export default {
     }
   },
   watch: {
-    searchText(value) {
+    searchText() {
       this.modalChange()
-      if (value !== 0) {
-        this.setAutoWordsCheck(true)
-      } else {
-        this.setAutoWordsCheck(false)
-      }
     }
   },
   methods: {
@@ -105,7 +99,6 @@ export default {
       setSearchModal: 'setSearchModal',
       setSearchingCheck: 'setSearchingCheck',
       removeWords: 'removeWords',
-      setAutoWordsCheck: 'setAutoWordsCheck',
       clearHistory: 'clearHistory',
       setStartPoint: 'setStartPoint',
       setResentCheck: 'setResentCheck',
@@ -145,9 +138,6 @@ export default {
     searchingStateCheck() {
       this.setSearchModal(true)
       this.modalChange()
-    },
-    dragPrevent() {
-      return false
     },
     showButtonControl(value) {
       this.showButton = value

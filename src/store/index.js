@@ -35,9 +35,6 @@ export default createStore({
         setSearchingCheck(state, value) {
             state.searchingCheck = value
         },
-        setAutoWordsCheck(state, value) {
-            state.autoWordsCheck = value
-        },
         clearHistory(state) {
             state.searchHistory = []
             localStorage.clear()
@@ -103,9 +100,6 @@ export default createStore({
         },
         getAutoCompleted(state) {
             return state.autoCompleteList
-        },
-        getAutoWordsState(state) {
-            return state.autoWordsCheck
         },
         getListSize(state) {
             return state.listSize
