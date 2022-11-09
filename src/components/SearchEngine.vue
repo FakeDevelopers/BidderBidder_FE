@@ -153,8 +153,7 @@ export default {
         this.showButtonControl(true)
       }
       else{
-        this.clearHistory()
-        this.showButtonControl(false)
+        this.clearAllHistory()
       }
     }
 
