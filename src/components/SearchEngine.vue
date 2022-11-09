@@ -106,7 +106,8 @@ export default {
       setSearchHistory: 'setSearchHistory'
     }),
     addKeyword(words) {
-      this.searchText = words
+      this.searchText = words.trim()
+
       if (this.searchText !== "") {
         this.$store.commit('addSearchWord', this.searchText)
       }
