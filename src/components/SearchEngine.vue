@@ -109,7 +109,7 @@ export default {
       setSearchHistory: 'setSearchHistory'
     }),
     addKeyword(words) {
-      this.searchText = words.trim()
+      this.searchText = words
 
       if (this.searchText !== "") {
         this.$store.commit('addSearchWord', this.searchText)
@@ -122,10 +122,10 @@ export default {
         this.$store.dispatch("FETCH_LIST", {
           listSize: this.getListSize,
           currentPage: this.getCurrentPage,
-          searchWord: words,
+          searchWord: words.trim(),
           searchType: 0
         })
-        this.addKeyword(words)
+        this.addKeyword(words.trim())
       }
       this.setSearchModal(false)
       this.showButtonControl(true)
