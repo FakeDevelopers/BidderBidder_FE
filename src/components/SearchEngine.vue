@@ -116,16 +116,17 @@ export default {
       }
     },
     searchResult(words) {
-      if (words.trim()) {
+      let searchWords = words.trim()
+      if (searchWords) {
         this.setStartPoint(1)
         this.$router.push(/products/ + this.getCurrentPage)
         this.$store.dispatch("FETCH_LIST", {
           listSize: this.getListSize,
           currentPage: this.getCurrentPage,
-          searchWord: words.trim(),
+          searchWord: searchWords,
           searchType: 0
         })
-        this.addKeyword(words.trim())
+        this.addKeyword(searchWords)
       }
       this.setSearchModal(false)
       this.showButtonControl(true)
