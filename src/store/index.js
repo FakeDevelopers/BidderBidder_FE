@@ -37,7 +37,10 @@ export default createStore({
         },
         clearHistory(state) {
             state.searchHistory = []
-            localStorage.clear()
+            localStorage.setItem("searchHistory", "[]");
+        },
+        setAutoWordsCheck(state, value) {
+            state.autoWordsCheck = value
         },
         setListSize(state, value) {
             state.listSize = value
@@ -58,13 +61,9 @@ export default createStore({
             let searchHistoryWords = localStorage.getItem("searchHistory")
 
             let searchHistory = JSON.parse(searchHistoryWords)
-            if (searchHistory) {
-                if (searchHistory.includes(words)) {
-                    let idx = searchHistory.indexOf(words)
-                    state.searchHistory.splice(idx, 1)
-                }
-            } else {
-                state.searchHistory = []
+            let idx = searchHistory.indexOf(words)
+            if (idx !==-1) {
+                state.searchHistory.splice(idx, 1)
             }
             state.searchHistory.unshift(words)
             localStorage.setItem("searchHistory", JSON.stringify(state.searchHistory));
@@ -94,6 +93,9 @@ export default createStore({
         },
         getAutoCompleted(state) {
             return state.autoCompleteList
+        },
+        getAutoWordsState(state) {
+            return state.autoWordsCheck
         },
         getListSize(state) {
             return state.listSize

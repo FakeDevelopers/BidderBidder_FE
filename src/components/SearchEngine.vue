@@ -36,7 +36,7 @@
           </ul>
         </div>
         <div class="search-form" v-else-if="getSearchingState">
-          <ul>
+          <ul v-if="getAutoWordsState">
             <li v-for="autoCompleteWords in getAutoCompleted" v-bind:key="autoCompleteWords"
                 @click="searchResult(autoCompleteWords)"
                 class="search-list" @dragstart="false">
@@ -68,7 +68,7 @@ export default {
 
     this.setSearchHistory(searchHistory)
 
-    if (searchHistory) {
+    if (searchHistory.length) {
       this.showButtonControl(true)
     }
 
@@ -80,6 +80,7 @@ export default {
       getSearchingState: 'getSearchingState',
       getPopularSearch: 'getPopularSearch',
       getAutoCompleted: 'getAutoCompleted',
+      getAutoWordsState: 'getAutoWordsState',
       getListSize: 'getListSize',
       getCurrentPage: 'getCurrentPage',
       getResentCheck: 'getResentCheck',
@@ -90,8 +91,9 @@ export default {
     }
   },
   watch: {
-    searchText() {
+    searchText(value) {
       this.setSearchingCheck(this.searchText)
+      this.setAutoWordsCheck(value.trim())
     }
   },
   methods: {
@@ -99,6 +101,7 @@ export default {
       setSearchModal: 'setSearchModal',
       setSearchingCheck: 'setSearchingCheck',
       removeWords: 'removeWords',
+      setAutoWordsCheck: 'setAutoWordsCheck',
       clearHistory: 'clearHistory',
       setStartPoint: 'setStartPoint',
       setResentCheck: 'setResentCheck',
@@ -113,17 +116,20 @@ export default {
       }
     },
     searchResult(words) {
-      this.setStartPoint(1)
-      this.$router.push(/products/ + this.getCurrentPage)
-      this.$store.dispatch("FETCH_LIST", {
-        listSize: this.getListSize,
-        currentPage: this.getCurrentPage,
-        searchWord: words,
-        searchType: 0
-      })
-      this.addKeyword(words)
+      if(words.trim()){
+        this.setStartPoint(1)
+        this.$router.push(/products/ + this.getCurrentPage)
+        this.$store.dispatch("FETCH_LIST", {
+          listSize: this.getListSize,
+          currentPage: this.getCurrentPage,
+          searchWord: words,
+          searchType: 0
+        })
+        this.addKeyword(words)
+      }
       this.setSearchModal(false)
       this.showButtonControl(true)
+      this.$refs.cursor.blur()
     },
     fixSearchText(e) {
       this.searchText = e.target.value
