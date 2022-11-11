@@ -3,20 +3,20 @@ import {fetchList} from '../api/index'
 
 export default createStore({
     state: {
-        showModal: false,
+        showLoginPopup: false,
         productList: [],
     },
     mutations: {
-        setShowModal(state, value) {
-            this.state.showModal = value
+        setShowLoginPopup(state, value) {
+            this.state.showLoginPopup = value
         },
-        SET_LIST(state, list) {
+        setList(state, list) {
             state.productList = list
         },
     },
     getters: {
         getModalState(state) {
-            return state.showModal
+            return state.showLoginPopup
         },
         getProductList(state) {
             return state.productList
