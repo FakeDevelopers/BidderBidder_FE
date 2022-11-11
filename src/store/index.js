@@ -1,7 +1,6 @@
 import {createStore} from 'vuex'
 import {fetchList} from '../api/index'
 
-
 export default createStore({
     state: {
         showLoginPopup: false,
