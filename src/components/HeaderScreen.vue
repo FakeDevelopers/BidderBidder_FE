@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="header">
+    <div class="header" @click="setSearchModal(false)">
       <div class="top-nav">
         <div class="app-cta">
           <span class="app-icon">
