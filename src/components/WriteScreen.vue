@@ -18,7 +18,7 @@ export default {
   name: "WriteScreen",
   data() {
     return {
-      category: 0,
+      category: 4,
       hopePrice: 7000,
       openingBid: 3000,
       tick: 1,
@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     submitForm: function () {
-      submitWrite(this.category, this.imageList, this.hopePrice, this.openingBid, this.tick)
+      submitWrite(this.category, this.imageList, this.hopePrice, this.openingBid,0, this.tick)
     },
     upload(e) {
       let fileList = e.target.files || e.dataTransfer.files
