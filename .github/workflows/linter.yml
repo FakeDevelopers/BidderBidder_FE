@@ -44,7 +44,7 @@ jobs:
         uses: github/super-linter@v4
         env:
           VALIDATE_ALL_CODEBASE: false
-          DEFAULT_BRANCH: master
+          DEFAULT_BRANCH: develop
           JAVASCRIPT_DEFAULT_STYLE: prettier
           IGNORE_GITIGNORE_FILES: true
           VALIDATE_BASH: true
