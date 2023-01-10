@@ -1,11 +1,13 @@
 import {createStore} from 'vuex'
 import {fetchList} from '../api/index'
+import {getAuthTokenFromCookie} from "@/utils/cookies";
 
 export default createStore({
     state: {
         showModal: false,
         productList: [],
         accountData: [],
+        authToken: getAuthTokenFromCookie() || '',
     },
     mutations: {
         setShowModal(state, value) {

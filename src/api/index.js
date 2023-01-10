@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {config} from './baseUrl'
+import {setInterceptors} from './interceptors'
 
 async function fetchList(listNum, pageNum, searchWords, searchTypes) {
     try {
@@ -17,7 +18,6 @@ async function fetchList(listNum, pageNum, searchWords, searchTypes) {
 }
 
 async function submitAccount(email, passwd) {
-
     const url = `${config.baseUrl}/user/login`
     const form = new FormData()
 
@@ -61,12 +61,10 @@ async function submitWrite(category, imageList, hopePrice, openingBid, tick) {
 }
 
 async function requestSocialSignin(provider, token) {
-    console.log("백엔드 소셜 로그인 통신 시작", provider, token);
     const url = `${config.baseUrl}/user/signin-${provider}`;
     const auth = `Bearer ${token}`;
 
     try {
-        console.log("백엔드 요청 : ",auth)
         const response = await axios
           .post(url, {}, {
             headers: {
@@ -81,5 +79,16 @@ async function requestSocialSignin(provider, token) {
         console.log(err);
     }
 }
+
+function createInstance() {
+    const instance = axios.create();
+    return instance;
+}
+export const instance = createInstance();
+function createInstanceWithAuth() {
+    const instance = axios.create();
+    return setInterceptors(instance);
+}
+export const instanceWithAuth = createInstanceWithAuth();
 
 export {fetchList, submitAccount, submitWrite, requestSocialSignin}
