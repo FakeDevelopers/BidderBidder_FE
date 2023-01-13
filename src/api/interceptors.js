@@ -1,4 +1,4 @@
-import store from '@/store/index';
+import store from "@/store/index";
 
 export function setInterceptors(instance) {
   instance.interceptors.request.use(
@@ -8,7 +8,7 @@ export function setInterceptors(instance) {
     },
     function (error) {
       return Promise.reject(error);
-    },
+    }
   );
 
   instance.interceptors.response.use(
@@ -17,9 +17,8 @@ export function setInterceptors(instance) {
     },
     function (error) {
       return Promise.reject(error);
-    },
+    }
   );
-  
-  return instance;
 
+  return instance;
 }
