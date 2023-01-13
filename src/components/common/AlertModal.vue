@@ -124,7 +124,7 @@ body {
 
   * {
     box-sizing: border-box;
-    font-family: Pretendard;
+    font-family: Pretendard, sans-serif;
     font-weight: 600;
   }
 

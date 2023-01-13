@@ -190,7 +190,7 @@ export default {
 @import "src/css/variables";
 * {
   box-sizing: border-box;
-  font-family: Pretendard;
+  font-family: Pretendard,sans-serif;
   font-weight: 600;
 }
 // Header
@@ -259,7 +259,7 @@ export default {
   padding-top: 51px;
   padding-bottom: 31px;
 
-  logo {
+  .logo {
     cursor: pointer;
   }
 
