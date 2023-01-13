@@ -1,6 +1,6 @@
-import {createStore} from 'vuex'
-import {fetchList} from '../api/index'
-import {getAuthTokenFromCookie} from "@/utils/cookies";
+import { createStore } from "vuex";
+import { fetchList } from "../api/index";
+import { getAuthTokenFromCookie } from "@/utils/cookies";
 
 export default createStore({
   state: {
