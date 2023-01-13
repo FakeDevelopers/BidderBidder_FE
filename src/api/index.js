@@ -32,20 +32,21 @@ async function submitAccount(email, passwd) {
     }
 }
 
-async function submitWrite(category, imageList, hopePrice, openingBid, tick) {
+async function submitWrite(category, imageList, hopePrice, openingBid, represent, tick) {
 
     const url = `${config.baseUrl}/product/write`
     const form = new FormData()
 
-    form.append('board_content', '경매')
-    form.append('board_title', '뭐뭐 팝니다.')
+    form.append('productContent', '경매')
+    form.append('productTitle', '뭐뭐 팝니다.')
     form.append('category', category)
-    form.append('end_date', '2022-06-12 19:00')
+    form.append('expirationDate', '2022-09-27 19:00')
     for (let image of imageList) {
         form.append('files', image)
     }
-    form.append('hope_price', hopePrice)
-    form.append('opening_bid', openingBid)
+    form.append('representPicture', represent)
+    form.append('hopePrice', hopePrice)
+    form.append('openingBid', openingBid)
     form.append('tick', tick)
 
     try {
