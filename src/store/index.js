@@ -1,6 +1,5 @@
 import { createStore } from "vuex";
 import { fetchList } from "../api/index";
-import { getAuthTokenFromCookie } from "@/utils/cookies";
 
 export default createStore({
   state: {
@@ -12,7 +11,6 @@ export default createStore({
     popularCheck: false,
     productList: [],
     accountData: [],
-    authToken: getAuthTokenFromCookie() || "",
     listSize: 15,
     startPoint: 1,
     currentPage: 1,
