@@ -66,6 +66,19 @@ export default {
       showButton: false
     }
   },
+  created() {
+
+    let searchHistoryWords = localStorage.getItem('searchHistory')
+
+    let searchHistory = JSON.parse(searchHistoryWords)
+
+    this.setSearchHistory(searchHistory)
+
+    if (searchHistory.length) {
+      this.showButtonControl(true)
+    }
+
+  },
   computed: {
     ...mapGetters({
       getSearchModalState: 'getSearchModalState',
