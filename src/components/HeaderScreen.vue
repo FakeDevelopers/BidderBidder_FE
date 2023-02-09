@@ -168,11 +168,12 @@ export default {
     })
   },
   created() {
-    if (localStorage.getItem("firebaseAuthData") === null) {
+    let firebaseAuthData = localStorage.getItem("firebaseAuthData");
+    if (firebaseAuthData === null) {
       initFirebaseAuth();
     } else {
       console.log("로그인 데이터 확인");
-      const accountData = JSON.parse(localStorage.getItem("firebaseAuthData"));
+      const accountData = JSON.parse(firebaseAuthData);
       this.$emit('setAccountData', accountData);
       console.log(accountData[0]);
       requestSocialSignin("google", accountData[0]);
