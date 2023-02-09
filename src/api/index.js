@@ -1,6 +1,5 @@
 import axios from "axios";
 import { config } from "./baseUrl";
-import { setInterceptors } from "./interceptors";
 
 async function fetchList(listNum, pageNum, searchWords, searchTypes) {
   try {
@@ -96,10 +95,5 @@ function createInstance() {
   return instance;
 }
 export const instance = createInstance();
-function createInstanceWithAuth() {
-  const instance = axios.create();
-  return setInterceptors(instance);
-}
-export const instanceWithAuth = createInstanceWithAuth();
 
 export { fetchList, submitAccount, submitWrite, requestSocialSignin };

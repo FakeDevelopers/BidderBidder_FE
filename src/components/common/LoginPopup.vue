@@ -92,10 +92,7 @@ export default {
       firebaseGoogleAuth();
     }
   },
-  beforeCreate() {
-    console.log("BEFORE")
-  },
-  data() {
+제  data() {
     return {
       id: '',
       passwd: '',
