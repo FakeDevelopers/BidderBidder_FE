@@ -33,7 +33,6 @@ export default createStore({
       state.searchModal = value;
     },
     setAccountData(state, value) {
-      console.log("SET_ACCOUNT_DATA");
       this.state.accountData = value;
     },
     SET_LIST(state, list) {
