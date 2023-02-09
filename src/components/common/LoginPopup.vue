@@ -92,7 +92,7 @@ export default {
       firebaseGoogleAuth();
     }
   },
-제  data() {
+data() {
     return {
       id: '',
       passwd: '',
