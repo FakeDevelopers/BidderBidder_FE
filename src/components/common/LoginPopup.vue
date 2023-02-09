@@ -138,7 +138,7 @@ body {
     max-width: 837px;
     width: 100%;
     display: block;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     border-radius: 25px;
     position: relative;
 
@@ -243,7 +243,7 @@ body {
         letter-spacing: 3px;
 
         &::placeholder {
-          letter-spacing: 0px;
+          letter-spacing: 0;
         }
       }
 
@@ -397,7 +397,7 @@ body {
   }
 
   @include tablet {
-    padding-top: 0px;
+    padding-top: 0;
 
     .signup-cta {
       display: none;
@@ -410,7 +410,7 @@ body {
   }
 
   @include mobile {
-    padding-top: 0px;
+    padding-top: 0;
 
     .signup-cta {
       display: none;
