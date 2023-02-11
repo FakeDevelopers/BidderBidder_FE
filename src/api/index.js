@@ -90,10 +90,4 @@ async function requestSocialSignin(provider, token) {
   }
 }
 
-function createInstance() {
-  const instance = axios.create();
-  return instance;
-}
-export const instance = createInstance();
-
 export { fetchList, submitAccount, submitWrite, requestSocialSignin };
