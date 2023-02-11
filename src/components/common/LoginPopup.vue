@@ -49,7 +49,7 @@
               <span class="text" v-if="$i18n.locale === 'ko'">{{ $t('naver') + $t('loginWith') }}</span>
               <span class="text" v-if="$i18n.locale === 'en'">{{ $t('loginWith') + $t('naver') }}</span>
             </a>
-            <a href="" class="button button__icon-text button__social social__google">
+            <a @click="googleAuth" class="button button__icon-text button__social social__google">
               <span class="icon"></span>
               <span class="text" v-if="$i18n.locale === 'ko'">{{ $t('google') + $t('loginWith') }}</span>
               <span class="text" v-if="$i18n.locale === 'en'">{{ $t('loginWith') + $t('google') }}</span>
@@ -78,6 +78,7 @@
 <script>
 import {mapMutations} from 'vuex'
 import {submitAccount} from "@/api";
+import {firebaseGoogleAuth} from "@/firebase"
 
 export default {
   methods: {
@@ -87,8 +88,11 @@ export default {
     submitForm: function () {
       submitAccount(this.id, this.passwd)
     },
+    googleAuth () {
+      firebaseGoogleAuth();
+    }
   },
-  data() {
+data() {
     return {
       id: '',
       passwd: '',
@@ -134,7 +138,7 @@ body {
     max-width: 837px;
     width: 100%;
     display: block;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     border-radius: 25px;
     position: relative;
 
@@ -239,7 +243,7 @@ body {
         letter-spacing: 3px;
 
         &::placeholder {
-          letter-spacing: 0px;
+          letter-spacing: 0;
         }
       }
 
@@ -393,7 +397,7 @@ body {
   }
 
   @include tablet {
-    padding-top: 0px;
+    padding-top: 0;
 
     .signup-cta {
       display: none;
@@ -406,7 +410,7 @@ body {
   }
 
   @include mobile {
-    padding-top: 0px;
+    padding-top: 0;
 
     .signup-cta {
       display: none;
@@ -489,7 +493,7 @@ body {
 .button {
   display: inline-flex;
   text-decoration: none;
-
+  cursor: pointer;
 
   // Button Type
   &__default {

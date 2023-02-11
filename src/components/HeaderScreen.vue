@@ -41,6 +41,7 @@
         </div>
         <div class="nav-menu">
           <span class="button" @click="modalOpen(true)">로그인</span>
+          <span class="button" @click="signOut()">로그아웃</span>
           <a href="" class="button button__link__primary">회원가입</a>
           <a href="" class="button">이벤트</a>
           <a href="" class="button">기획전</a>
@@ -143,6 +144,8 @@ import Modal from './common/LoginPopup.vue'
 import {mapGetters, mapMutations} from 'vuex'
 import SearchEngine from "@/components/SearchEngine";
 
+import {initFirebaseAuth, firebaseSignOut} from "@/firebase"
+import {requestSocialSignin} from "@/api"
 
 export default {
   name: "login",
@@ -155,12 +158,25 @@ export default {
       modalOpen: 'setShowLoginPopup',
       setSearchModal: 'setSearchModal'
     }),
+    signOut() {
+      firebaseSignOut();
+    }
   },
   computed: {
     ...mapGetters({
-      showModal: 'getModalState'
+      showModal: 'getModalState',
     })
   },
+  created() {
+    let firebaseAuthData = localStorage.getItem("firebaseAuthData");
+    if (firebaseAuthData === null) {
+      initFirebaseAuth();
+    } else {
+      const accountData = JSON.parse(firebaseAuthData);
+      this.$emit('setAccountData', accountData);
+      requestSocialSignin("google", accountData[0]);
+    }
+  }
 
 }
 
